@@ -30,66 +30,142 @@ export const constantRoutes = [
       meta: { title: '首页', icon: 'dashboard' }
     }]
   },
-
   {
-    path: '/userManage',
+    path: '/riskManage',
     component: Layout,
-    children: [{
-      path: 'userManage',
-      name: '用户管理',
-      component: () => import('@/views/userManage/index'),
-      meta: { title: '用户管理', icon: 'dashboard' }
-    }]
-  },
-
-  {
-    path: '/assetManagement',
-    component: Layout,
-    redirect: '/equipment',
-    name: '资产管理',
-    meta: { title: '资产管理', icon: 'el-icon-s-help' },
+    redirect: '/riskManage/employeeManage',
+    name: '风险管理',
+    meta: {
+      title: '风险管理',
+      icon: 'nested'
+    },
     children: [
       {
-        path: '/equipment',
-        name: '设备管理',
-        component: () => import('@/views/equipment/index'),
-        meta: { title: '设备管理', icon: 'table' }
+        path: '/employeeRiskManage',
+        redirect: '/employeeRiskManage/employeeManage',
+        component: () => import('@/views/userManage/index'), // Parent router-view
+        name: '人员风险管理',
+        meta: { title: '人员风险管理' },
+        children: [
+          {
+            path: '/employeeManage',
+            component: () => import('@/views/userManage/index'),
+            name: '人员管理',
+            meta: { title: '人员管理' }
+          }
+        ]
       },
       {
-        path: '/device',
-        name: '装置管理',
-        component: () => import('@/views/devices/index'),
-        meta: { title: '装置管理', icon: 'table' }
+        path: '/equipmentRiskManage',
+        component: () => import('@/views/equipment/index'), // Parent router-view
+        name: '设备风险管理',
+        meta: { title: '设备风险管理' },
+        children: [
+          {
+            path: '/productionEquipment',
+            component: () => import('@/views/productionEquipment/index'),
+            name: '生产设备',
+            meta: { title: '生产设备' }
+          },
+          {
+            path: '/environmentEquipment',
+            component: () => import('@/views/environmentEquipment/index'),
+            name: '环境设备',
+            meta: { title: '环境设备' }
+          }
+        ]
       },
       {
-        path: '/material',
-        name: '物料管理',
-        component: () => import('@/views/material/index'),
-        meta: { title: '物料管理', icon: 'table' }
+        path: '/devicesRiskManage',
+        redirect: '/devicesRiskManage/vehicleRisk',
+        component: () => import('@/views/equipment/index'), // Parent router-view
+        name: '装置风险管理',
+        meta: { title: '装置风险管理' },
+        children: [
+          {
+            path: '/vehicleRisk',
+            component: () => import('@/views/vehicleRisk/index'),
+            name: '车辆告警情况',
+            meta: { title: '车辆告警情况' }
+          },
+          {
+            path: '/driverRisk',
+            component: () => import('@/views/driverRisk/index'),
+            name: '司机告警情况',
+            meta: { title: '司机告警情况' }
+          }
+        ]
+      },
+      {
+        path: '/materialRiskManage',
+        redirect: '/materialRiskManage/materialManage',
+        component: () => import('@/views/equipment/index'), // Parent router-view
+        name: '物料风险管理',
+        meta: { title: '物料风险管理' },
+        children: [
+          {
+            path: '/materialManage',
+            component: () => import('@/views/materialManage/index'),
+            name: '物料管理',
+            meta: { title: '物料管理' }
+          }
+        ]
+      },
+      {
+        path: '/jobRiskManage',
+        redirect: '/jobRiskManage/videoWarn',
+        component: () => import('@/views/equipment/index'), // Parent router-view
+        name: '作业风险管理',
+        meta: { title: '作业风险管理' },
+        children: [
+          {
+            path: '/videoWarn',
+            component: () => import('@/views/videoWarn/index'),
+            name: '监控报警',
+            meta: { title: '监控报警' }
+          },
+          {
+            path: '/sideSlopeWarn',
+            component: () => import('@/views/sideSlopeWarn/index'),
+            name: '边坡报警',
+            meta: { title: '边坡报警' }
+          },
+          {
+            path: '/movingRingWarn',
+            component: () => import('@/views/movingRingWarn/index'),
+            name: '动环报警',
+            meta: { title: '动环报警' }
+          }
+        ]
+      },
+      {
+        path: '/environmentRiskManage',
+        redirect: '/environmentRiskManage/dustMonitor',
+        component: () => import('@/views/equipment/index'), // Parent router-view
+        name: '环境风险管理',
+        meta: { title: '环境风险管理' },
+        children: [
+          {
+            path: '/dustMonitor',
+            component: () => import('@/views/dustMonitor/index'),
+            name: '扬尘污染监测',
+            meta: { title: '扬尘污染监测' }
+          },
+          {
+            path: '/noiseMonitor',
+            component: () => import('@/views/noiseMonitor/index'),
+            name: '噪声污染监测',
+            meta: { title: '噪声污染监测' }
+          },
+          {
+            path: '/highSlopeMonitor',
+            component: () => import('@/views/highSlopeMonitor/index'),
+            name: '高边坡位移监测',
+            meta: { title: '高边坡位移监测' }
+          }
+        ]
       }
     ]
-  },
-
-  {
-    path: '/jobManagement',
-    component: Layout,
-    children: [{
-      path: 'JobManagement',
-      name: '作业管理',
-      component: () => import('@/views/jobManage/index'),
-      meta: { title: '作业管理', icon: 'dashboard' }
-    }]
-  },
-
-  {
-    path: '/environment',
-    component: Layout,
-    children: [{
-      path: 'Environment',
-      name: '环境管理',
-      component: () => import('@/views/environment/index'),
-      meta: { title: '环境管理', icon: 'dashboard' }
-    }]
   },
   {
     path: '/system',

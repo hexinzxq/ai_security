@@ -9,7 +9,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  font-family: Source Han Sans, Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  //&.el-popup-parent--hidden {
+  //  padding-right: 0px !important;
+  //}
 }
 
 label {
@@ -19,6 +22,11 @@ label {
 html {
   height: 100%;
   box-sizing: border-box;
+  //scrollbar-width: none; /* Firefox */
+  //::-webkit-scrollbar {
+  //  /* Chrome */
+  //  display: none;
+  //}
 }
 
 #app {
@@ -61,5 +69,5 @@ div:focus {
 
 // main-container global css
 .app-container {
-  padding: 20px;
+  padding: 16px;
 }

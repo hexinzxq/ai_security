@@ -1,4 +1,5 @@
 // cover some element-ui styles
+@import './variables.scss';
 
 .el-breadcrumb__inner,
 .el-breadcrumb__inner a {
@@ -6,7 +7,7 @@
 }
 
 .el-upload {
-  input[type="file"] {
+  input[type='file'] {
     display: none !important;
   }
 }
@@ -15,13 +16,38 @@
   display: none;
 }
 
-
 // to fixed https://github.com/ElemeFE/element/issues/2461
 .el-dialog {
   transform: none;
   left: 0;
   position: relative;
   margin: 0 auto;
+  .el-dialog__footer {
+    .dialog-footer {
+      .el-button--primary {
+        &:focus {
+          color: #ffffff;
+          border-color: $itemThem;
+          background-color: $itemThem;
+        }
+        &:hover {
+          color: $itemThem;
+          border-color: $itemThem;
+          background-color: #ecf5ff;
+        }
+      }
+    }
+  }
+  .el-dialog__body {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .el-dialog__header {
+    font-weight: bold;
+    .el-dialog__title {
+      color: #333333;
+    }
+  }
 }
 
 // refine element ui upload
@@ -39,11 +65,132 @@
 // dropdown
 .el-dropdown-menu {
   a {
-    display: block
+    display: block;
   }
 }
 
 // to fix el-date-picker css style
 .el-range-separator {
   box-sizing: content-box;
+}
+
+// button style
+.el-button--text {
+  color: $buttonTextColor;
+  border: none;
+  background: transparent !important;
+  &:hover {
+    color: $buttonTextColor !important;
+  }
+  &:focus {
+    color: $buttonTextColor !important;
+  }
+  :hover {
+    border-bottom: 1px solid;
+  }
+}
+.el-button--text.is-disabled {
+  color: #C0C4CC !important;
+  :hover {
+    border: none !important;
+  }
+}
+// 处理
+.el-button--text.deal-btn-red {
+  color: #F53F3F !important;
+}
+.el-button--text.no-border {
+  border: none !important;
+  :hover {
+    border: none !important;
+  }
+}
+
+.el-button.el-button--primary.is-plain:hover {
+  //color: #22a575;
+  //background: #e9f6f1;
+  //border-color: #a7dbc8;
+  color: #ffffff;
+  border-color: $itemThem;
+  background-color: $itemThem;
+}
+.el-button.el-button--danger.is-plain:hover {
+  color: #ffffff !important;
+  background: #F56C6C !important;
+  border-color: #F56C6C !important;
+  //color: #F56C6C !important;
+  //background: #fef0f0 !important;
+  //border-color: #fbc4c4 !important;
+}
+.el-button.button-null.el-button--default:hover {
+  background: #FFFFFF !important;
+  border: 1px solid #DCDFE6 !important;
+  color: #606266 !important;
+}
+.button-null {
+  color: rgba(169,169,169,0.41);
+  border: 1px solid #DCDFE6;
+  background: rgba(225,225,225,0.05);
+}
+.button-null:hover {
+  color: rgba(169,169,169,0.41) !important;
+  border: 1px solid #DCDFE6 !important;
+  background: rgba(225,225,225,0.05) !important;
+}
+
+.el-button:hover {
+  color: $itemThem;
+  border-color: $itemThem;
+  background-color: #ecf5ff;
+}
+
+.el-button--primary:focus {
+  color: #ffffff;
+  border-color: $itemThem;
+  background-color: $itemThem;
+}
+
+.el-button--default:focus {
+  background: #FFFFFF;
+  border: 1px solid #DCDFE6;
+  color: #606266;
+}
+
+.el-message {
+  min-width: 280px;
+}
+
+.el-message-box {
+  .el-message-box__content {
+    .el-message-box__container {
+      .el-icon-warning {
+        color: #FFA900;
+      }
+    }
+  }
+  .el-message-box__btns {
+    .el-button--primary {
+      color: #ffffff;
+      border-color: $itemThem;
+      background-color: $itemThem;
+      &:focus {
+        color: #ffffff;
+        border-color: $itemThem;
+        background-color: $itemThem;
+      }
+      &:hover {
+        color: $itemThem;
+        border-color: $itemThem;
+        background-color: #ecf5ff;
+      }
+    }
+  }
+}
+
+.el-select-dropdown__item.hover {
+  background-color: $itemThem !important;
+  color: #ffffff !important;
+}
+.el-input-number.is-without-controls .el-input__inner {
+  text-align: left;
 }

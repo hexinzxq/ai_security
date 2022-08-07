@@ -1,16 +1,35 @@
 // sidebar
 $menuText:#bfcbd9;
-$menuActiveText:#409EFF;
+$menuActiveText:#333;
 $subMenuActiveText:#f4f4f5; //https://github.com/ElemeFE/element/issues/12951
+// 主题颜色
+$itemThem: #22a575;
+// 整体背景
+$menuBg:#1A1B21;
+// 二级菜单背景色
+$menuHover: #3B6354;
 
-$menuBg:#304156;
-$menuHover:#263445;
-
-$subMenuBg:#1f2d3d;
-$subMenuHover:#001528;
+$subMenuBg:#000000;
+$subMenuHover:#3B6354;
 
 $sideBarWidth: 210px;
+// 激活背景色
+$activeColor: #22a575;
+// 悬浮背景色
+$hoverColor:#3B6354;
 
+// 文字按钮颜色
+$buttonTextColor: #409eff;
+// 默认子级字体颜色
+$defaultTextColor:#fff;
+$hoverTextColor:#fff;
+$activeTextColor:#fff;
+// 默认一级菜单字体颜色
+$defaultTopTextColor:rgba(255,255,255,.6);
+$hoverTopTextColor:rgba(255,255,255,.6);
+$activeTopTextColor:#333;
+// 一级激活背景色
+$activeBgColor:#000;
 // the :export directive is the magic sauce for webpack
 // https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
 :export {
@@ -22,4 +41,11 @@ $sideBarWidth: 210px;
   subMenuBg: $subMenuBg;
   subMenuHover: $subMenuHover;
   sideBarWidth: $sideBarWidth;
+  activeColor:$activeColor;
+  hoverColor:$hoverColor;
+  activeTextColor:$activeTextColor;
+  hoverTextColor:$hoverTextColor;
+  defaultTextColor:$defaultTextColor;
+  itemThem: $itemThem;
+  buttonTextColor: $buttonTextColor;
 }
