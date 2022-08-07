@@ -6,7 +6,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || 'vue Admin Template' // page title
+const name = defaultSettings.title || '智能安全生产分析预警系统' // page title
 
 // If your port is set to 80,
 // use administrator privileges to execute the command line.
@@ -31,9 +31,9 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     port: port,
-    open: true,
+    open: false,
     overlay: {
-      warnings: false,
+      warnings: true,
       errors: true
     },
     before: require('./mock/mock-server.js')

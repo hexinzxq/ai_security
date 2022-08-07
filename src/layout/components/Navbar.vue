@@ -2,44 +2,33 @@
   <div class="navbar">
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
-    <breadcrumb class="breadcrumb-container" />
+    <span class="system-title">智能安全生产分析预警系统</span>
 
     <div class="right-menu">
-      <el-dropdown class="avatar-container" trigger="click">
-        <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
-        </div>
-        <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/">
-            <el-dropdown-item>
-              Home
-            </el-dropdown-item>
-          </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
-            <el-dropdown-item>Github</el-dropdown-item>
-          </a>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a>
-          <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">Log Out</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+      <div class="search_icon"><i class="el-icon-search"></i></div>
+      <div class="notice_icon"><i class="el-icon-bell"></i></div>
+      <div class="info">
+        <span class="avatar"><img :src="avatar" alt=""></span>
+        <span class="name">欢迎您 {{ name }}</span>
+      </div>
+      <div class="logout" @click="logout"><i class="el-icon-right"></i>退出登录</div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 
 export default {
   components: {
-    Breadcrumb,
     Hamburger
+  },
+  data() {
+    return {
+      name: '管理员',
+      avatar: require('@/assets/nav_header_images/city.png')
+    }
   },
   computed: {
     ...mapGetters([
@@ -61,14 +50,18 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
+  width: 100%;
   height: 50px;
   overflow: hidden;
   position: relative;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  .system-title {
+    line-height: 50px;
+  }
 
   .hamburger-container {
-    line-height: 46px;
+    line-height: 48px;
     height: 100%;
     float: left;
     cursor: pointer;
@@ -86,52 +79,30 @@ export default {
 
   .right-menu {
     float: right;
+    width: 400px;
     height: 100%;
     line-height: 50px;
-
-    &:focus {
-      outline: none;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 20px;
+    i {
+      cursor: pointer;
     }
-
-    .right-menu-item {
-      display: inline-block;
-      padding: 0 8px;
-      height: 100%;
-      font-size: 18px;
-      color: #5a5e66;
-      vertical-align: text-bottom;
-
-      &.hover-effect {
-        cursor: pointer;
-        transition: background .3s;
-
-        &:hover {
-          background: rgba(0, 0, 0, .025)
-        }
+    .info {
+      cursor: pointer;
+      line-height: 50px;
+      .avatar img {
+        transform: translateY(5px);
+        margin-right: 5px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
       }
     }
-
-    .avatar-container {
-      margin-right: 30px;
-
-      .avatar-wrapper {
-        margin-top: 5px;
-        position: relative;
-
-        .user-avatar {
-          cursor: pointer;
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
-        }
-
-        .el-icon-caret-bottom {
-          cursor: pointer;
-          position: absolute;
-          right: -20px;
-          top: 25px;
-          font-size: 12px;
-        }
+    .logout {
+      cursor: pointer;
+      i {
+        margin-right: 5px;
       }
     }
   }

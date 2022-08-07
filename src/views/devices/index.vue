@@ -47,6 +47,7 @@
 import { getList } from '@/api/table'
 
 export default {
+  name: 'Devices',
   filters: {
     statusFilter(status) {
       const statusMap = {

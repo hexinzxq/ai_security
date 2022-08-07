@@ -37,7 +37,7 @@ export const constantRoutes = [
     children: [{
       path: 'userManage',
       name: '用户管理',
-      component: () => import('@/views/table/index'),
+      component: () => import('@/views/userManage/index'),
       meta: { title: '用户管理', icon: 'dashboard' }
     }]
   },
@@ -52,19 +52,19 @@ export const constantRoutes = [
       {
         path: '/equipment',
         name: '设备管理',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/equipment/index'),
         meta: { title: '设备管理', icon: 'table' }
       },
       {
         path: '/device',
         name: '装置管理',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/devices/index'),
         meta: { title: '装置管理', icon: 'table' }
       },
       {
         path: '/material',
         name: '物料管理',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/material/index'),
         meta: { title: '物料管理', icon: 'table' }
       }
     ]
@@ -76,7 +76,7 @@ export const constantRoutes = [
     children: [{
       path: 'JobManagement',
       name: '作业管理',
-      component: () => import('@/views/table/index'),
+      component: () => import('@/views/jobManage/index'),
       meta: { title: '作业管理', icon: 'dashboard' }
     }]
   },
@@ -87,7 +87,7 @@ export const constantRoutes = [
     children: [{
       path: 'Environment',
       name: '环境管理',
-      component: () => import('@/views/table/index'),
+      component: () => import('@/views/environment/index'),
       meta: { title: '环境管理', icon: 'dashboard' }
     }]
   },
@@ -101,13 +101,13 @@ export const constantRoutes = [
       {
         path: '/operate',
         name: '操作日志',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/operateLog/index'),
         meta: { title: '操作日志', icon: 'table' }
       },
       {
         path: '/handle',
         name: '处理日志',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/handleLog/index'),
         meta: { title: '处理日志', icon: 'table' }
       }
     ]
