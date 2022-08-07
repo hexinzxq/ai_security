@@ -683,6 +683,7 @@ export default {
     },
     // 改变显示个数时获取数据
     handleSizeChange(val) {
+      return
       this.loading = true
       this.pageSize = val
 
@@ -712,6 +713,7 @@ export default {
     },
     // 改变当前页时获取数据
     handleCurrentChange(val) {
+      return
       this.loading = true
       this.pageNum = val
       if (!this.dataFlag) {
@@ -762,6 +764,7 @@ export default {
       this.$emit('addData')
     },
     exportData() {
+      return
       this.$emit('exportData')
     },
     deleteData() {

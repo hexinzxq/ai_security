@@ -564,24 +564,10 @@ export const vehicleInfoField = {
     label: '点位名称',
     minWidth: '45px'
   },
-  // ip: {
-  //   label: '设备ip',
-  //   minWidth: ''
-  // },
-  // password: {
-  //   // 列名
-  //   label: '设备密码',
-  //   // 列的最小宽度
-  //   minWidth: ''
-  // },
   address: {
     label: '接口地址',
     minWidth: '80px'
   },
-  // deployment: {
-  //   label: '算法布控',
-  //   minWidth: ''
-  // },
   state: {
     // 列名
     label: '状态',
@@ -590,10 +576,6 @@ export const vehicleInfoField = {
     prop: 'state',
     slot: true
   }
-  // remark: {
-  //   label: '备注',
-  //   minWidth: '60px'
-  // }
 }
 
 export const gnssInfoField = {

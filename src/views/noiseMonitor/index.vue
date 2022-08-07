@@ -123,7 +123,62 @@ export default {
       mychart: '1',
       value1: '',
       value: '',
-      tableData: [],
+      tableData: [
+        {
+          equipmentId: '882190765',
+          pointName: '噪声污染监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+        {
+          equipmentId: '882190765',
+          pointName: '噪声污染监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+        {
+          equipmentId: '882190765',
+          pointName: '噪声污染监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+        {
+          equipmentId: '882190765',
+          pointName: '噪声污染监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+        {
+          equipmentId: '882190765',
+          pointName: '噪声污染监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+        {
+          equipmentId: '882190765',
+          pointName: '噪声污染监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+        {
+          equipmentId: '882190765',
+          pointName: '噪声污染监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+        {
+          equipmentId: '882190765',
+          pointName: '噪声污染监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+        {
+          equipmentId: '882190765',
+          pointName: '噪声污染监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+      ],
       loading: false,
       dataFlag: true,
       pageConfig: {
@@ -288,7 +343,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['equipment', 'point']),
     ...mapState({
     })
   },
@@ -299,38 +353,42 @@ export default {
     },
   },
   created() {
-    this.topSearchConfig.eleComponents[0] = {
-      ...this.topSearchConfig.eleComponents[0],
-      ...{ options: [...this.equipment] }
-    }
-    this.topSearchConfig.eleComponents[1] = {
-      ...this.topSearchConfig.eleComponents[1],
-      ...{ options: [...this.point] }
-    }
+    // this.topSearchConfig.eleComponents[0] = {
+    //   ...this.topSearchConfig.eleComponents[0],
+    // }
+    // this.topSearchConfig.eleComponents[1] = {
+    //   ...this.topSearchConfig.eleComponents[1],
+    //   ...{ options: [...this.point] }
+    // }
   },
   mounted() {
-    this.$route.query.id &&
-    (this.topSearchConfig.eleComponents[0].defaultVal = this.$route.query.id) &&
-    this.$refs.table.getFilterParams({
-      value: this.$route.query.id,
-      key: 'id'
-    })
-    this.$route.query.name &&
-    (this.topSearchConfig.eleComponents[1].defaultVal = this.$route.query.name) &&
-    this.$refs.table.getFilterParams({
-      value: this.$route.query.name,
-      key: 'pointName'
-    })
-    this.$route.query.status &&
-    (this.topSearchConfig.eleComponents[3].defaultVal = this.$route.query.status) &&
-    this.$refs.table.getFilterParams({
-      value: this.$route.query.status,
-      key: 'status'
-    })
-    this.$refs.table.submitFormInfo()
-    if (!(this.$route.query.id && this.$route.query.name)) {
-      this.monitorQueryAll()
-    }
+    this.$refs.table.loading = false
+    this.pageConfig.total = 10
+    this.pageConfig.currentPage = 1
+    this.$refs.table.getShowCols(this.tableData, vehicleInfoField)
+
+    // this.$route.query.id &&
+    // (this.topSearchConfig.eleComponents[0].defaultVal = this.$route.query.id) &&
+    // this.$refs.table.getFilterParams({
+    //   value: this.$route.query.id,
+    //   key: 'id'
+    // })
+    // this.$route.query.name &&
+    // (this.topSearchConfig.eleComponents[1].defaultVal = this.$route.query.name) &&
+    // this.$refs.table.getFilterParams({
+    //   value: this.$route.query.name,
+    //   key: 'pointName'
+    // })
+    // this.$route.query.status &&
+    // (this.topSearchConfig.eleComponents[3].defaultVal = this.$route.query.status) &&
+    // this.$refs.table.getFilterParams({
+    //   value: this.$route.query.status,
+    //   key: 'status'
+    // })
+    // this.$refs.table.submitFormInfo()
+    // if (!(this.$route.query.id && this.$route.query.name)) {
+    //   this.monitorQueryAll()
+    // }
   },
   methods: {
     handleEdit(row) {

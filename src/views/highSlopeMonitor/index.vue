@@ -169,7 +169,62 @@ export default {
     return {
       dataFlag: true,
       vehicleInfoField,
-      tableData: [],
+      tableData: [
+        {
+          equipmentId: '882190765',
+          pointName: '高边坡位移监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+        {
+          equipmentId: '882190765',
+          pointName: '高边坡位移监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+        {
+          equipmentId: '882190765',
+          pointName: '高边坡位移监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+        {
+          equipmentId: '882190765',
+          pointName: '高边坡位移监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+        {
+          equipmentId: '882190765',
+          pointName: '高边坡位移监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+        {
+          equipmentId: '882190765',
+          pointName: '高边坡位移监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+        {
+          equipmentId: '882190765',
+          pointName: '高边坡位移监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+        {
+          equipmentId: '882190765',
+          pointName: '高边坡位移监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+        {
+          equipmentId: '882190765',
+          pointName: '高边坡位移监测点',
+          address: 'https://192.168.1.163:8080/api',
+          state: 'success',
+        },
+      ],
       alterFlag: true,
       exportButton: true,
       // 操作列
@@ -354,55 +409,41 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['gnssEquipment', 'gnssPoint']),
-    ...mapState({
-      websocketData: state => state.websocket.websocketData
-    })
   },
   watch: {
     $route(to, from) {
       this.$refs.table.resetForm()
       this.slopeMonitorQuery()
     },
-    websocketData(newVal, oldVal) {
-      if (newVal.type === websocketType['reality']) {
-        this.slopeMonitorQuery()
-      }
-    }
   },
-  created() {
-    this.topSearchConfig.eleComponents[0] = {
-      ...this.topSearchConfig.eleComponents[0],
-      ...{ options: [...this.gnssEquipment] }
-    }
-    this.topSearchConfig.eleComponents[1] = {
-      ...this.topSearchConfig.eleComponents[1],
-      ...{ options: [...this.gnssPoint] }
-    }
-  },
+  created() {},
   mounted() {
-    this.$route.query.id &&
-    (this.topSearchConfig.eleComponents[0].defaultVal = this.$route.query.id) &&
-    this.$refs.table.getFilterParams({
-      value: this.$route.query.id,
-      key: 'id'
-    })
-    this.$route.query.name &&
-    (this.topSearchConfig.eleComponents[1].defaultVal = this.$route.query.name) &&
-    this.$refs.table.getFilterParams({
-      value: this.$route.query.name,
-      key: 'pointName'
-    })
-    this.$route.query.status &&
-    (this.topSearchConfig.eleComponents[3].defaultVal = this.$route.query.status) &&
-    this.$refs.table.getFilterParams({
-      value: this.$route.query.status,
-      key: 'status'
-    })
-    this.$refs.table.submitFormInfo()
-    if (!(this.$route.query.id && this.$route.query.name)) {
-      this.slopeMonitorQuery()
-    }
+    this.$refs.table.loading = false
+    this.pageConfig.total = 10
+    this.pageConfig.currentPage = 1
+    this.$refs.table.getShowCols(this.tableData, vehicleInfoField)
+    // this.$route.query.id &&
+    // (this.topSearchConfig.eleComponents[0].defaultVal = this.$route.query.id) &&
+    // this.$refs.table.getFilterParams({
+    //   value: this.$route.query.id,
+    //   key: 'id'
+    // })
+    // this.$route.query.name &&
+    // (this.topSearchConfig.eleComponents[1].defaultVal = this.$route.query.name) &&
+    // this.$refs.table.getFilterParams({
+    //   value: this.$route.query.name,
+    //   key: 'pointName'
+    // })
+    // this.$route.query.status &&
+    // (this.topSearchConfig.eleComponents[3].defaultVal = this.$route.query.status) &&
+    // this.$refs.table.getFilterParams({
+    //   value: this.$route.query.status,
+    //   key: 'status'
+    // })
+    // this.$refs.table.submitFormInfo()
+    // if (!(this.$route.query.id && this.$route.query.name)) {
+    //   this.slopeMonitorQuery()
+    // }
   },
   methods: {
     handleEdit(row) {
