@@ -43,7 +43,6 @@ export const constantRoutes = [
       {
         path: '/employeeRiskManage',
         redirect: '/employeeRiskManage/employeeManage',
-        component: () => import('@/views/userManage/index'), // Parent router-view
         name: '人员风险管理',
         meta: { title: '人员风险管理' },
         children: [
@@ -57,7 +56,6 @@ export const constantRoutes = [
       },
       {
         path: '/equipmentRiskManage',
-        component: () => import('@/views/equipment/index'), // Parent router-view
         name: '设备风险管理',
         meta: { title: '设备风险管理' },
         children: [
@@ -78,7 +76,6 @@ export const constantRoutes = [
       {
         path: '/devicesRiskManage',
         redirect: '/devicesRiskManage/vehicleRisk',
-        component: () => import('@/views/equipment/index'), // Parent router-view
         name: '装置风险管理',
         meta: { title: '装置风险管理' },
         children: [
@@ -99,7 +96,6 @@ export const constantRoutes = [
       {
         path: '/materialRiskManage',
         redirect: '/materialRiskManage/materialManage',
-        component: () => import('@/views/equipment/index'), // Parent router-view
         name: '物料风险管理',
         meta: { title: '物料风险管理' },
         children: [
@@ -114,7 +110,6 @@ export const constantRoutes = [
       {
         path: '/jobRiskManage',
         redirect: '/jobRiskManage/videoWarn',
-        component: () => import('@/views/equipment/index'), // Parent router-view
         name: '作业风险管理',
         meta: { title: '作业风险管理' },
         children: [
@@ -141,7 +136,6 @@ export const constantRoutes = [
       {
         path: '/environmentRiskManage',
         redirect: '/environmentRiskManage/dustMonitor',
-        component: () => import('@/views/equipment/index'), // Parent router-view
         name: '环境风险管理',
         meta: { title: '环境风险管理' },
         children: [
