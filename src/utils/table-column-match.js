@@ -486,6 +486,56 @@ export const userInfoFieldNone = {
   }
 }
 
+let align = 'center'
+export const mainEvent = {
+  // 特殊列
+  specialCols: [
+    {
+      prop: 'selection',
+      label: '',
+      width: '',
+      align
+    },
+    {
+      prop: 'index',
+      label: '序号',
+      width: '',
+      fixed: 'left',
+      // fixed:'left',
+      align
+    }
+  ],
+  vehicleNumber: {
+    label: '关联车辆',
+    minWidth: '56px'
+  },
+  warningNo: {
+    label: '事件编号',
+    minWidth: '78px'
+  },
+  vehicleGps: {
+    label: 'GPS定位',
+    minWidth: '120px'
+    // 自定义列内容
+    // slot:true
+    // sortable:true
+  },
+  warningContent: {
+    label: '报警情况',
+    minWidth: '120px',
+    slot: true
+  },
+  status: {
+    label: '状态',
+    slot: true,
+    minWidth: '58px'
+  },
+  causeTime: {
+    label: '发生时间',
+    minWidth: '98px'
+  }
+}
+
 export const vehicleInfoField = {
   // 特殊列
   specialCols: [
