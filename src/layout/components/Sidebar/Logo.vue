@@ -24,8 +24,8 @@ export default {
   },
   data() {
     return {
-      title: '智能安全生产分析预警系统',
-      logo: require('@/assets/nav_header_images/city.png')
+      title: '',
+      logo: require('@/assets/nav_header_images/logo.png')
     }
   }
 }

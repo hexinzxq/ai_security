@@ -164,7 +164,7 @@ export const constantRoutes = [
   {
     path: '/system',
     component: Layout,
-    redirect: '/operate',
+    redirect: '/system/operate',
     name: '系统管理',
     meta: { title: '系統管理', icon: 'el-icon-s-help' },
     children: [

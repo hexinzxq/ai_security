@@ -8,7 +8,7 @@
       <div class="search_icon"><i class="el-icon-search"></i></div>
       <div class="notice_icon"><i class="el-icon-bell"></i></div>
       <div class="info">
-        <span class="avatar"><img :src="avatar" alt=""></span>
+        <span class="avatar"><img :src="avatarBar" alt=""></span>
         <span class="name">欢迎您 {{ name }}</span>
       </div>
       <div class="logout" @click="logout"><i class="el-icon-right"></i>退出登录</div>
@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       name: '管理员',
-      avatar: require('@/assets/nav_header_images/city.png')
+      avatarBar: require('@/assets/nav_header_images/city.png')
     }
   },
   computed: {

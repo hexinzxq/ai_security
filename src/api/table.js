@@ -7,3 +7,12 @@ export function getList(params) {
     params
   })
 }
+
+// 获取表格数据
+export function getTableData(url, params) {
+  return request({
+    url,
+    method: 'get',
+    params: params
+  })
+}

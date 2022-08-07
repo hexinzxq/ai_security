@@ -627,6 +627,7 @@ export default {
     },
     // 使父组件获取搜索数据
     submitFormInfo() {
+      return
       // this.getFilterParams(fathersFilterParams)
       this.loading = true
       const rules = []
@@ -664,6 +665,7 @@ export default {
     //
     // 置空搜索栏
     resetForm() {
+      return
       this.filterParams = {}
       this.clearFlag = !this.clearFlag
       this.loading = true
