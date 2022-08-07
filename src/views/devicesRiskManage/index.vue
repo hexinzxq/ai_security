@@ -1,10 +1,12 @@
 <template>
-<div>生产设备</div>
+<div>
+  <router-view></router-view>
+</div>
 </template>
 
 <script>
 export default {
-  name: 'ProductionEquipment'
+  name: "DevicesRiskManage"
 }
 </script>
 

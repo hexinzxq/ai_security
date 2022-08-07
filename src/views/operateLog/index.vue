@@ -7,7 +7,6 @@
       :table-data="tableData"
       :page-config="pageConfig"
       :params="paramsProps"
-      :operation-cols="operationCols"
       @search-info="getSearchInfo"
     >
       <template #operBtn>
@@ -234,7 +233,7 @@ export default {
             // 类型必传
             type: 'daterange',
             // 左边字段名称 可传可不传
-            label: '处理时间',
+            label: '操作时间',
             // 搜索字段绑定的值，必穿
             value: '',
             // 控件name可传可不传

@@ -485,3 +485,150 @@ export const userInfoFieldNone = {
     minWidth: ''
   }
 }
+
+export const vehicleInfoField = {
+  // 特殊列
+  specialCols: [
+    {
+      prop: 'selection',
+      label: '',
+      width: '40px',
+      align: 'left'
+    },
+    {
+      prop: 'index',
+      label: '序号',
+      width: '70px',
+      fixed: 'left',
+      // fixed:'left',
+      align: 'left'
+    }
+  ],
+  equipmentId: {
+    // 列名
+    label: '设备号',
+    // 列的最小宽度
+    minWidth: '45px'
+  },
+  pointName: {
+    label: '点位名称',
+    minWidth: '45px'
+  },
+  // ip: {
+  //   label: '设备ip',
+  //   minWidth: ''
+  // },
+  // password: {
+  //   // 列名
+  //   label: '设备密码',
+  //   // 列的最小宽度
+  //   minWidth: ''
+  // },
+  address: {
+    label: '接口地址',
+    minWidth: '80px'
+  },
+  // deployment: {
+  //   label: '算法布控',
+  //   minWidth: ''
+  // },
+  state: {
+    // 列名
+    label: '状态',
+    // 列的最小宽度
+    minWidth: '35px',
+    prop: 'state',
+    slot: true
+  }
+  // remark: {
+  //   label: '备注',
+  //   minWidth: '60px'
+  // }
+}
+
+export const gnssInfoField = {
+  // 特殊列
+  specialCols: [
+    {
+      prop: 'selection',
+      label: '',
+      width: '40px',
+      align: 'left'
+    },
+    {
+      prop: 'index',
+      label: '序号',
+      width: '70px',
+      fixed: 'left',
+      // fixed:'left',
+      align: 'left'
+    }
+  ],
+  equipmentId: {
+    // 列名
+    label: '设备号',
+    // 列的最小宽度
+    minWidth: '45px'
+  },
+  pointName: {
+    label: '点位名称',
+    minWidth: '45px'
+  },
+  state: {
+    // 列名
+    label: '状态',
+    // 列的最小宽度
+    minWidth: '35px',
+    prop: 'state',
+    slot: true
+  }
+}
+
+export const cameraInfoField = {
+  specialCols: [
+    {
+      prop: 'selection',
+      label: '',
+      width: '40px',
+      align: 'left'
+    }
+  ],
+  equipmentId: {
+    // 列名
+    label: '设备号',
+    // 列的最小宽度
+    minWidth: ''
+  },
+  pointName: {
+    label: '点位名称',
+    minWidth: ''
+  },
+  ip: {
+    label: '设备ip',
+    minWidth: ''
+  },
+  rtsp: {
+    label: 'rtsp',
+    minWidth: ''
+  },
+  flv: {
+    label: 'flv',
+    minWidth: ''
+  },
+  address: {
+    label: '区域',
+    minWidth: ''
+  },
+  channel: {
+    label: '通道',
+    minWidth: ''
+  },
+  state: {
+    // 列名
+    label: '状态',
+    // 列的最小宽度
+    minWidth: '',
+    prop: 'state',
+    slot: true
+  }
+}

@@ -7,7 +7,6 @@
       :table-data="tableData"
       :page-config="pageConfig"
       :params="paramsProps"
-      :operation-cols="operationCols"
       @search-info="getSearchInfo"
     >
       <template #operBtn>

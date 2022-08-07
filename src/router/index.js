@@ -30,10 +30,11 @@ export const constantRoutes = [
       meta: { title: '首页', icon: 'dashboard' }
     }]
   },
+
   {
     path: '/riskManage',
     component: Layout,
-    redirect: '/riskManage/employeeManage',
+    redirect: '/riskManage/employeeRiskManage/employeeManage',
     name: '风险管理',
     meta: {
       title: '风险管理',
@@ -42,7 +43,7 @@ export const constantRoutes = [
     children: [
       {
         path: '/employeeRiskManage',
-        redirect: '/employeeRiskManage/employeeManage',
+        component: () => import('@/views/employeeRiskManage/index'), // Parent router-view
         name: '人员风险管理',
         meta: { title: '人员风险管理' },
         children: [
@@ -56,6 +57,7 @@ export const constantRoutes = [
       },
       {
         path: '/equipmentRiskManage',
+        component: () => import('@/views/equipmentRiskManage/index'), // Parent router-view
         name: '设备风险管理',
         meta: { title: '设备风险管理' },
         children: [
@@ -75,6 +77,7 @@ export const constantRoutes = [
       },
       {
         path: '/devicesRiskManage',
+        component: () => import('@/views/devicesRiskManage/index'), // Parent router-view
         redirect: '/devicesRiskManage/vehicleRisk',
         name: '装置风险管理',
         meta: { title: '装置风险管理' },
@@ -95,6 +98,7 @@ export const constantRoutes = [
       },
       {
         path: '/materialRiskManage',
+        component: () => import('@/views/materialRiskManage/index'), // Parent router-view
         redirect: '/materialRiskManage/materialManage',
         name: '物料风险管理',
         meta: { title: '物料风险管理' },
@@ -109,6 +113,7 @@ export const constantRoutes = [
       },
       {
         path: '/jobRiskManage',
+        component: () => import('@/views/jobRiskManage/index'), // Parent router-view
         redirect: '/jobRiskManage/videoWarn',
         name: '作业风险管理',
         meta: { title: '作业风险管理' },
@@ -135,6 +140,7 @@ export const constantRoutes = [
       },
       {
         path: '/environmentRiskManage',
+        component: () => import('@/views/environmentRiskManage/index'), // Parent router-view
         redirect: '/environmentRiskManage/dustMonitor',
         name: '环境风险管理',
         meta: { title: '环境风险管理' },
