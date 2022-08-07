@@ -1,0 +1,5 @@
+export default {
+  AE_MAIN_ADMIN: 'AE_MAIN_ADMIN',
+  AE_SAFE_ADMIN: 'AE_SAFE_ADMIN',
+  AE_PROJ_ADMIN: 'AE_PROJ_ADMIN'
+}

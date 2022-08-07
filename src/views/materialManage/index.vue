@@ -1,5 +1,5 @@
 <template>
-<div></div>
+<div>物料管理</div>
 </template>
 
 <script>
