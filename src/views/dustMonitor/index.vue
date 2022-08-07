@@ -398,7 +398,9 @@ export default {
   },
   mounted() {
     this.$refs.table.getShowCols(this.tableData, vehicleInfoField)
-    this.$refs.table.loading = false
+    setTimeout(() => {
+      this.$refs.table.loading = false
+    }, 500)
     // this.$route.query.id && (this.topSearchConfig.eleComponents[0].defaultVal = this.$route.query.id) && this.$refs.table.getFilterParams({ value: this.$route.query.id, key: 'id' })
     // this.$route.query.name && (this.topSearchConfig.eleComponents[1].defaultVal = this.$route.query.name) && this.$refs.table.getFilterParams({ value: this.$route.query.name, key: 'pointName' })
     // this.$route.query.status && (this.topSearchConfig.eleComponents[3].defaultVal = this.$route.query.status) && this.$refs.table.getFilterParams({ value: this.$route.query.status, key: 'status' })

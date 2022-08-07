@@ -299,7 +299,9 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.$refs.logTableC.getShowCols(this.tableData, logOperateField)
-      this.$refs.logTableC.loading = false
+      setTimeout(() => {
+        this.$refs.logTableC.loading = false
+      }, 500)
       if (this.dataFlag) {
         const params = {
           pageNum: 1,

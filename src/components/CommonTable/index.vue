@@ -744,6 +744,11 @@ export default {
       this.filterParams = {}
       this.clearFlag = !this.clearFlag
       this.current = e
+      this.loading  = true
+      setTimeout(() => {
+        this.loading  = false
+      }, 500)
+      return
       const params = {
         pageNum: 1,
         pageSize: this.pageSize,

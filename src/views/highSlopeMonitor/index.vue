@@ -418,7 +418,9 @@ export default {
   },
   created() {},
   mounted() {
-    this.$refs.table.loading = false
+    setTimeout(() => {
+      this.$refs.table.loading = false
+    }, 500)
     this.pageConfig.total = 10
     this.pageConfig.currentPage = 1
     this.$refs.table.getShowCols(this.tableData, vehicleInfoField)

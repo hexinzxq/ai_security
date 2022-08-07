@@ -122,7 +122,7 @@
         <el-button
           type="primary"
           :loading="loadingButton"
-          @click="confirmForm"
+          @click="closeForm"
         >确 定</el-button>
       </span>
     </el-dialog>
@@ -144,7 +144,7 @@ import {
   videoStream,
   getRealDeviceList,
 } from '@/api/api'
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 const defaultForm = {
   id: '',
   equipmentId: '',
@@ -239,7 +239,94 @@ export default {
       input3: '',
       tableData: [
         {
-
+          equipmentId: '202208018891',
+          pointName: '环境设备点位',
+          ip: '192.168.1.164',
+          rtsp: 'https://172.166.4.125:8050/rtsp',
+          flv: 'https://172.166.4.125:8050/flv',
+          address: '江苏省南京市鼓楼区',
+          channel: '0',
+          state: 'success'
+        },
+        {
+          equipmentId: '202208018891',
+          pointName: '环境设备点位',
+          ip: '192.168.1.164',
+          rtsp: 'https://172.166.4.125:8050/rtsp',
+          flv: 'https://172.166.4.125:8050/flv',
+          address: '江苏省南京市鼓楼区',
+          channel: '0',
+          state: 'success'
+        },
+        {
+          equipmentId: '202208018891',
+          pointName: '环境设备点位',
+          ip: '192.168.1.164',
+          rtsp: 'https://172.166.4.125:8050/rtsp',
+          flv: 'https://172.166.4.125:8050/flv',
+          address: '江苏省南京市鼓楼区',
+          channel: '0',
+          state: 'success'
+        },
+        {
+          equipmentId: '202208018891',
+          pointName: '环境设备点位',
+          ip: '192.168.1.164',
+          rtsp: 'https://172.166.4.125:8050/rtsp',
+          flv: 'https://172.166.4.125:8050/flv',
+          address: '江苏省南京市鼓楼区',
+          channel: '0',
+          state: 'success'
+        },
+        {
+          equipmentId: '202208018891',
+          pointName: '环境设备点位',
+          ip: '192.168.1.164',
+          rtsp: 'https://172.166.4.125:8050/rtsp',
+          flv: 'https://172.166.4.125:8050/flv',
+          address: '江苏省南京市鼓楼区',
+          channel: '0',
+          state: 'success'
+        },
+        {
+          equipmentId: '202208018891',
+          pointName: '环境设备点位',
+          ip: '192.168.1.164',
+          rtsp: 'https://172.166.4.125:8050/rtsp',
+          flv: 'https://172.166.4.125:8050/flv',
+          address: '江苏省南京市鼓楼区',
+          channel: '0',
+          state: 'success'
+        },
+        {
+          equipmentId: '202208018891',
+          pointName: '环境设备点位',
+          ip: '192.168.1.164',
+          rtsp: 'https://172.166.4.125:8050/rtsp',
+          flv: 'https://172.166.4.125:8050/flv',
+          address: '江苏省南京市鼓楼区',
+          channel: '0',
+          state: 'success'
+        },
+        {
+          equipmentId: '202208018891',
+          pointName: '环境设备点位',
+          ip: '192.168.1.164',
+          rtsp: 'https://172.166.4.125:8050/rtsp',
+          flv: 'https://172.166.4.125:8050/flv',
+          address: '江苏省南京市鼓楼区',
+          channel: '0',
+          state: 'success'
+        },
+        {
+          equipmentId: '202208018891',
+          pointName: '环境设备点位',
+          ip: '192.168.1.164',
+          rtsp: 'https://172.166.4.125:8050/rtsp',
+          flv: 'https://172.166.4.125:8050/flv',
+          address: '江苏省南京市鼓楼区',
+          channel: '0',
+          state: 'success'
         }
       ],
       loading: false,
@@ -323,12 +410,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['equipment', 'gnssEquipment', 'cameraEquipment'])
+    // ...mapGetters(['equipment', 'gnssEquipment', 'cameraEquipment'])
   },
   created() {
-    getRealDeviceList().then(res => {
-      this.optionEquipmentId = res.data.data
-    })
+    // getRealDeviceList().then(res => {
+    //   this.optionEquipmentId = res.data.data
+    // })
   },
   watch: {
     equipment(newVal) {
@@ -351,16 +438,20 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(() => {
-      if (this.dataFlag) {
-        // pagesize,pageNo,升降序等参数
-        this.getTableData(this.paramsInfo)
-        this.topSearchConfig.eleComponents[0] = {
-          ...this.topSearchConfig.eleComponents[0],
-          ...{ options: [...this.equipment] }
-        }
-      }
-    })
+    this.$refs.table.getShowCols(this.tableData, cameraInfoField)
+    setTimeout(() => {
+      this.$refs.table.loading = false
+    }, 500)
+    // this.$nextTick(() => {
+    //   if (this.dataFlag) {
+    //     // pagesize,pageNo,升降序等参数
+    //     this.getTableData(this.paramsInfo)
+    //     this.topSearchConfig.eleComponents[0] = {
+    //       ...this.topSearchConfig.eleComponents[0],
+    //       ...{ options: [...this.equipment] }
+    //     }
+    //   }
+    // })
   },
   methods: {
     // 处理视频推流
@@ -406,6 +497,7 @@ export default {
     },
     // 设备同步
     handleSync() {
+      return
       this.$confirm('是否确定同步设备数据?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

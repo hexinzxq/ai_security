@@ -402,7 +402,9 @@
     },
     mounted() {
       this.$refs.table.getShowCols(this.tableData, mainEvent)
-      this.$refs.table.loading  =   false
+      setTimeout(() => {
+        this.$refs.table.loading  = false
+      }, 500)
       // // 父组件中调用接口获取后端数据
       // this.$nextTick(() => {
       //   if (this.dataFlag) {

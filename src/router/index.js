@@ -56,6 +56,21 @@ export const constantRoutes = [
         ]
       },
       {
+        path: '/materialRiskManage',
+        component: () => import('@/views/materialRiskManage/index'), // Parent router-view
+        redirect: '/materialRiskManage/materialManage',
+        name: '物料风险管理',
+        meta: { title: '物料风险管理' },
+        children: [
+          {
+            path: '/materialManage',
+            component: () => import('@/views/materialManage/index'),
+            name: '物料管理',
+            meta: { title: '物料管理' }
+          }
+        ]
+      },
+      {
         path: '/equipmentRiskManage',
         component: () => import('@/views/equipmentRiskManage/index'), // Parent router-view
         name: '设备风险管理',
@@ -93,21 +108,6 @@ export const constantRoutes = [
             component: () => import('@/views/driverRisk/index'),
             name: '司机告警情况',
             meta: { title: '司机告警情况' }
-          }
-        ]
-      },
-      {
-        path: '/materialRiskManage',
-        component: () => import('@/views/materialRiskManage/index'), // Parent router-view
-        redirect: '/materialRiskManage/materialManage',
-        name: '物料风险管理',
-        meta: { title: '物料风险管理' },
-        children: [
-          {
-            path: '/materialManage',
-            component: () => import('@/views/materialManage/index'),
-            name: '物料管理',
-            meta: { title: '物料管理' }
           }
         ]
       },
