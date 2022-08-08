@@ -58,6 +58,72 @@ export const deviceField = {
   }
 }
 
+export const vehicleInfoFieldNoise = {
+  // 特殊列
+  specialCols: [
+    {
+      prop: 'selection',
+      label: '',
+      width: '50px',
+      fixed: 'left',
+      align: 'left'
+    },
+    {
+      prop: 'index',
+      label: '序号',
+      width: '60',
+      fixed: 'left',
+      // fixed:'left',
+      align: 'left'
+    }
+  ],
+  equipmentId: {
+    // 列名
+    label: '设备号',
+    // 列的最小宽度
+    minWidth: '50px'
+  },
+  pointName: {
+    label: '点位名称',
+    minWidth: '60px'
+  },
+  monitoringTime: {
+    // 列名
+    label: '监测时间',
+    // 列的最小宽度
+    // minWidth: '190px'
+  },
+  pmOne: {
+    label: 'PM2.5',
+    slot: true,
+    minWidth: '40px'
+  },
+  pmTwo: {
+    // 列名
+    label: 'PM10',
+    // 列的最小宽度
+    slot: true,
+    minWidth: '40px'
+  },
+  tsp: {
+    label: 'TSP',
+    slot: true,
+    minWidth: '40px'
+  },
+  dustPolluted: {
+    label: '是否污染',
+    slot: true,
+    minWidth: '45px'
+  },
+  dustHandle: {
+    // 列名
+    label: '状态',
+    // 列的最小宽度
+    slot: true,
+    minWidth: '70px'
+  }
+}
+
 // 人员白名单管理表头数据
 export const peopleField = {
   // 特殊列
@@ -575,6 +641,69 @@ export const vehicleInfoField = {
     minWidth: '35px',
     prop: 'state',
     slot: true
+  }
+}
+
+export const vehicleInfoFieldSlope = {
+  // 特殊列
+  specialCols: [
+    {
+      prop: 'selection',
+      label: '',
+      width: '40px',
+      align: 'left'
+    },
+    {
+      prop: 'index',
+      label: '序号',
+      width: '55px',
+      fixed: 'left',
+      // fixed:'left',
+      align: 'left'
+    }
+  ],
+  equipmentId: {
+    // 列名
+    label: '设备号',
+    // 列的最小宽度
+    minWidth: '100px'
+  },
+  pointName: {
+    label: '点位名称',
+    minWidth: '70px'
+  },
+  monitoringTime: {
+    label: '监测时间',
+    // minWidth: '110px'
+  },
+  relativeHorizontalX: {
+    label: 'X水平相对初始值（m）',
+    minWidth: '90px',
+    slot: true
+  },
+  relativeHorizontalY: {
+    label: 'Y水平相对初始值（m）',
+    minWidth: '90px',
+    slot: true
+  },
+  relativeAltitude: {
+    // 列名
+    label: '高程相对初始值（m）',
+    // 列的最小宽度
+    minWidth: '90px',
+    slot: true
+  },
+  degree: {
+    // 列名
+    label: '等级',
+    // 列的最小宽度
+    slot: true,
+    minWidth: '60px'
+  },
+  state: {
+    label: '状态',
+    slot: true,
+    minWidth: '90px'
   }
 }
 

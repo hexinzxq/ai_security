@@ -8,7 +8,7 @@
         :table-data="tableData"
         :page-config="pageConfig"
         :top-search-config="topSearchConfig"
-        :table-column-match="vehicleInfoField"
+        :table-column-match="vehicleInfoFieldNoise"
         :operation-cols="operationCols"
         :alter-flag="alterFlag"
         :export-button="exportButton"
@@ -16,83 +16,125 @@
         @search-info="searchInfo"
         @exportData="handleExport"
       >
-        <template #volume="data">
+        <!-- 自定义列的插槽写法，加入了提示窗，data指列名为pmOne的一列数据 -->
+        <template #pmOne="data">
           <el-popover
-            v-if="data.row.noisePolluted === 1"
+            v-if="data.row.pmOnePolluted === 1"
             placement="top-start"
             title=""
             trigger="hover"
-            :content="
-              '预警值：' + data.row.volumeMin + '-' + data.row.volumeLimit + ''
-            "
+            :content="'预警值：'+ data.row.pmOneMin+'-'+ data.row.pmOneLimit+''"
           >
             <el-button
               slot="reference"
               type="text"
               class="deal-btn-red no-border"
             >
-              <span>{{ data.row.volume }}
-                <img
-                  src="../../assets/nav_header_images/city.png"
-                  alt=""
-                  class="alert-img"
-                ></span>
+                <span>{{ data.row.pmOne }}
+                  <img
+                    src="../../assets/common/warning.svg"
+                    alt=""
+                    class="alert-img"
+                  ></span>
             </el-button>
           </el-popover>
-          <span v-else>{{ data.row.volume }}</span>
+          <span v-else>{{ data.row.pmOne }}</span>
         </template>
-        <template #noisePolluted="data">
-          <span :noisePolluted="data.row.noisePolluted">{{
-              data.row.noisePolluted === 0 ? "否" : "是"
-            }}</span>
+        <template #pmTwo="data">
+          <el-popover
+            v-if="data.row.pmTwoPolluted === 1"
+            placement="top-start"
+            title=""
+            trigger="hover"
+            :content="'预警值：'+ data.row.pmTwoMin+'-'+ data.row.pmTwoLimit+''"
+          >
+            <el-button
+              slot="reference"
+              type="text"
+              class="deal-btn-red no-border"
+            >
+                <span>{{ data.row.pmTwo }}
+                  <img
+                    src="../../assets/common/warning.svg"
+                    alt=""
+                    class="alert-img"
+                  ></span>
+            </el-button>
+          </el-popover>
+          <span v-else>{{ data.row.pmTwo }}</span>
         </template>
-        <template #noiseHandle="data">
+        <template #tsp="data">
+          <el-popover
+            v-if="data.row.tspPolluted === 1"
+            placement="top-start"
+            title=""
+            trigger="hover"
+            :content="'预警值：'+ data.row.tspMin+'-'+ data.row.tspLimit+''"
+          >
+            <el-button
+              slot="reference"
+              type="text"
+              class="deal-btn-red no-border"
+            >
+                <span>{{ data.row.tsp }}
+                  <img
+                    src="../../assets/common/warning.svg"
+                    alt=""
+                    class="alert-img"
+                  ></span>
+            </el-button>
+          </el-popover>
+          <span v-else>{{ data.row.tsp }}</span>
+        </template>
+        <template #dustPolluted="data">
+            <span
+              :dustPolluted="data.row.dustPolluted"
+            >{{ data.row.dustPolluted === 0 ? '否' : '是' }}</span>
+        </template>
+        <template #dustHandle="data">
           <el-button
-            v-if="data.row.noiseHandle === 0"
-            :noise-handle="data.row.noiseHandle"
+            v-if="data.row.dustHandle === 0"
+            :dust-handle="data.row.dustHandle"
             class="button-null"
-            @click="cancelButtonFocus"
           >
             无需处理
           </el-button>
           <el-button
-            v-if="data.row.noiseHandle === 2"
-            :noise-handle="data.row.noiseHandle"
-            type="primary"
-            plain
-            @click="cancelButtonFocus"
-          >
-            已处理
-          </el-button>
-          <el-button
-            v-if="data.row.noiseHandle === 1"
-            :noise-handle="data.row.noiseHandle"
+            v-if="data.row.dustHandle === 1"
+            :dust-handle="data.row.dustHandle"
             type="danger"
             plain
-            @click="cancelButtonFocus"
           >
             未处理
+          </el-button>
+          <el-button
+            v-if="data.row.dustHandle === 2"
+            :dust-handle="data.row.dustHandle"
+            type="primary"
+            plain
+          >
+            已处理
           </el-button>
         </template>
         <template #operation="data">
           <el-button
-            v-if="data.row.noiseHandle === 1 || data.row.noiseHandle === 0"
+            v-if="data.row.dustHandle === 1 || data.row.dustHandle === 0"
             :class="
-              data.row.noiseHandle === 0
-                ? ''
-                : 'deal-btn-red'
-            "
-            :disabled="data.row.noiseHandle === 0"
+                data.row.dustHandle === 0
+                  ? ''
+                  : 'deal-btn-red'
+              "
+            :disabled="data.row.dustHandle === 0"
             type="text"
-            :handle="data.row.noiseHandle"
-            @click="handleIng(data.row, data.row.noiseHandle)"
+            :handle="data.row.dustHandle"
+            @click="handleIng(data.row, data.row.dustHandle)"
           >
             处理
           </el-button>
           <el-button
-            v-else-if="data.row.noiseHandle === 2"
+            v-else-if="data.row.dustHandle === 2"
             type="text"
-            :handle="data.row.noiseHandle"
+            :handle="data.row.dustHandle"
             @click="handleEdit(data.row)"
           >
             查看
@@ -107,7 +149,7 @@
 <script>
 import { monitorQuery, serviceQuery, noiseExport, viewEvent } from '@/api/api'
 import CommonTable from '@/components/CommonTable'
-import { vehicleInfoField } from '@/utils/table-column-match'
+import { vehicleInfoFieldNoise } from '@/utils/table-column-match'
 import { mapGetters, mapState } from 'vuex'
 import { getMyDate } from '@/utils/format'
 export default {
@@ -119,65 +161,421 @@ export default {
     return {
       alterFlag: true,
       exportButton: true,
-      vehicleInfoField,
+      vehicleInfoFieldNoise,
       mychart: '1',
       value1: '',
       value: '',
       tableData: [
         {
-          equipmentId: '882190765',
-          pointName: '噪声污染监测点',
-          address: 'https://192.168.1.163:8080/api',
-          state: 'success',
+          "id": 54304,
+          "equipmentId": "40183947",
+          "pointName": "矿区出入口1号机",
+          "equipmentFk": 3,
+          "monitoringTime": "2022-08-08 09:00:01",
+          "pmOne": 0,
+          "pmTwo": 10,
+          "volume": 51.6,
+          "pmOnePolluted": 0,
+          "pmTwoPolluted": 0,
+          "noisePolluted": 0,
+          "dustPolluted": 0,
+          "dustPollutedStr": null,
+          "noisePollutedStr": null,
+          "dustHandleStr": null,
+          "noiseHandleStr": null,
+          "state": 0,
+          "dustHandle": 0,
+          "noiseHandle": 0,
+          "pmOneLimit": 300,
+          "pmOneMin": 0,
+          "pmTwoLimit": 300,
+          "pmTwoMin": 0,
+          "volumeLimit": 300,
+          "volumeMin": 0,
+          "pmOnePercent": 0,
+          "pmTwoPercent": 3,
+          "noisePercent": 17,
+          "dustEventId": "YC9920401417",
+          "noiseEventId": "ZS9920401417",
+          "startTime": null,
+          "endTime": null,
+          "createTime": "2022-08-08 09:00:01",
+          "updateTime": "2022-08-08 09:00:01",
+          "tsp": 12,
+          "tspPolluted": 0,
+          "tspLimit": 200,
+          "tspMin": 1,
+          "tspPercent": 6
         },
         {
-          equipmentId: '882190765',
-          pointName: '噪声污染监测点',
-          address: 'https://192.168.1.163:8080/api',
-          state: 'success',
+          "id": 54305,
+          "equipmentId": "40183974",
+          "pointName": "加工区挡墙",
+          "equipmentFk": 5,
+          "monitoringTime": "2022-08-08 09:00:01",
+          "pmOne": 0,
+          "pmTwo": 10,
+          "volume": 52.3,
+          "pmOnePolluted": 0,
+          "pmTwoPolluted": 0,
+          "noisePolluted": 0,
+          "dustPolluted": 0,
+          "dustPollutedStr": null,
+          "noisePollutedStr": null,
+          "dustHandleStr": null,
+          "noiseHandleStr": null,
+          "state": 0,
+          "dustHandle": 0,
+          "noiseHandle": 0,
+          "pmOneLimit": 300,
+          "pmOneMin": 0,
+          "pmTwoLimit": 200,
+          "pmTwoMin": 0,
+          "volumeLimit": 300,
+          "volumeMin": 0,
+          "pmOnePercent": 0,
+          "pmTwoPercent": 5,
+          "noisePercent": 17,
+          "dustEventId": "YC9920401436",
+          "noiseEventId": "ZS9920401436",
+          "startTime": null,
+          "endTime": null,
+          "createTime": "2022-08-08 09:00:01",
+          "updateTime": "2022-08-08 09:00:01",
+          "tsp": 12,
+          "tspPolluted": 0,
+          "tspLimit": 300,
+          "tspMin": 0,
+          "tspPercent": 4
         },
         {
-          equipmentId: '882190765',
-          pointName: '噪声污染监测点',
-          address: 'https://192.168.1.163:8080/api',
-          state: 'success',
+          "id": 54303,
+          "equipmentId": "40183974",
+          "pointName": "加工区挡墙",
+          "equipmentFk": 5,
+          "monitoringTime": "2022-08-08 08:50:02",
+          "pmOne": 0,
+          "pmTwo": 2,
+          "volume": 70.3,
+          "pmOnePolluted": 0,
+          "pmTwoPolluted": 0,
+          "noisePolluted": 0,
+          "dustPolluted": 0,
+          "dustPollutedStr": null,
+          "noisePollutedStr": null,
+          "dustHandleStr": null,
+          "noiseHandleStr": null,
+          "state": 0,
+          "dustHandle": 0,
+          "noiseHandle": 0,
+          "pmOneLimit": 300,
+          "pmOneMin": 0,
+          "pmTwoLimit": 200,
+          "pmTwoMin": 0,
+          "volumeLimit": 300,
+          "volumeMin": 0,
+          "pmOnePercent": 0,
+          "pmTwoPercent": 1,
+          "noisePercent": 23,
+          "dustEventId": "YC9919802418",
+          "noiseEventId": "ZS9919802418",
+          "startTime": null,
+          "endTime": null,
+          "createTime": "2022-08-08 08:50:02",
+          "updateTime": "2022-08-08 08:50:02",
+          "tsp": 2,
+          "tspPolluted": 0,
+          "tspLimit": 300,
+          "tspMin": 0,
+          "tspPercent": 0
         },
         {
-          equipmentId: '882190765',
-          pointName: '噪声污染监测点',
-          address: 'https://192.168.1.163:8080/api',
-          state: 'success',
+          "id": 54302,
+          "equipmentId": "40183947",
+          "pointName": "矿区出入口1号机",
+          "equipmentFk": 3,
+          "monitoringTime": "2022-08-08 08:50:02",
+          "pmOne": 0,
+          "pmTwo": 10,
+          "volume": 64.7,
+          "pmOnePolluted": 0,
+          "pmTwoPolluted": 0,
+          "noisePolluted": 0,
+          "dustPolluted": 0,
+          "dustPollutedStr": null,
+          "noisePollutedStr": null,
+          "dustHandleStr": null,
+          "noiseHandleStr": null,
+          "state": 0,
+          "dustHandle": 0,
+          "noiseHandle": 0,
+          "pmOneLimit": 300,
+          "pmOneMin": 0,
+          "pmTwoLimit": 300,
+          "pmTwoMin": 0,
+          "volumeLimit": 300,
+          "volumeMin": 0,
+          "pmOnePercent": 0,
+          "pmTwoPercent": 3,
+          "noisePercent": 21,
+          "dustEventId": "YC9919802401",
+          "noiseEventId": "ZS9919802401",
+          "startTime": null,
+          "endTime": null,
+          "createTime": "2022-08-08 08:50:02",
+          "updateTime": "2022-08-08 08:50:02",
+          "tsp": 12,
+          "tspPolluted": 0,
+          "tspLimit": 200,
+          "tspMin": 1,
+          "tspPercent": 6
         },
         {
-          equipmentId: '882190765',
-          pointName: '噪声污染监测点',
-          address: 'https://192.168.1.163:8080/api',
-          state: 'success',
+          "id": 54301,
+          "equipmentId": "40183974",
+          "pointName": "加工区挡墙",
+          "equipmentFk": 5,
+          "monitoringTime": "2022-08-08 08:40:02",
+          "pmOne": 0,
+          "pmTwo": 10,
+          "volume": 58,
+          "pmOnePolluted": 0,
+          "pmTwoPolluted": 0,
+          "noisePolluted": 0,
+          "dustPolluted": 0,
+          "dustPollutedStr": null,
+          "noisePollutedStr": null,
+          "dustHandleStr": null,
+          "noiseHandleStr": null,
+          "state": 0,
+          "dustHandle": 0,
+          "noiseHandle": 0,
+          "pmOneLimit": 300,
+          "pmOneMin": 0,
+          "pmTwoLimit": 200,
+          "pmTwoMin": 0,
+          "volumeLimit": 300,
+          "volumeMin": 0,
+          "pmOnePercent": 0,
+          "pmTwoPercent": 5,
+          "noisePercent": 19,
+          "dustEventId": "YC9919202309",
+          "noiseEventId": "ZS9919202309",
+          "startTime": null,
+          "endTime": null,
+          "createTime": "2022-08-08 08:40:02",
+          "updateTime": "2022-08-08 08:40:02",
+          "tsp": 12,
+          "tspPolluted": 0,
+          "tspLimit": 300,
+          "tspMin": 0,
+          "tspPercent": 4
         },
         {
-          equipmentId: '882190765',
-          pointName: '噪声污染监测点',
-          address: 'https://192.168.1.163:8080/api',
-          state: 'success',
+          "id": 54300,
+          "equipmentId": "40183947",
+          "pointName": "矿区出入口1号机",
+          "equipmentFk": 3,
+          "monitoringTime": "2022-08-08 08:40:02",
+          "pmOne": 1,
+          "pmTwo": 11,
+          "volume": 64.1,
+          "pmOnePolluted": 0,
+          "pmTwoPolluted": 0,
+          "noisePolluted": 0,
+          "dustPolluted": 0,
+          "dustPollutedStr": null,
+          "noisePollutedStr": null,
+          "dustHandleStr": null,
+          "noiseHandleStr": null,
+          "state": 0,
+          "dustHandle": 0,
+          "noiseHandle": 0,
+          "pmOneLimit": 300,
+          "pmOneMin": 0,
+          "pmTwoLimit": 300,
+          "pmTwoMin": 0,
+          "volumeLimit": 300,
+          "volumeMin": 0,
+          "pmOnePercent": 0,
+          "pmTwoPercent": 3,
+          "noisePercent": 21,
+          "dustEventId": "YC9919202296",
+          "noiseEventId": "ZS9919202296",
+          "startTime": null,
+          "endTime": null,
+          "createTime": "2022-08-08 08:40:02",
+          "updateTime": "2022-08-08 08:40:02",
+          "tsp": 13,
+          "tspPolluted": 0,
+          "tspLimit": 200,
+          "tspMin": 1,
+          "tspPercent": 6
         },
         {
-          equipmentId: '882190765',
-          pointName: '噪声污染监测点',
-          address: 'https://192.168.1.163:8080/api',
-          state: 'success',
+          "id": 54299,
+          "equipmentId": "40183974",
+          "pointName": "加工区挡墙",
+          "equipmentFk": 5,
+          "monitoringTime": "2022-08-08 08:30:02",
+          "pmOne": 0,
+          "pmTwo": 1,
+          "volume": 51.3,
+          "pmOnePolluted": 0,
+          "pmTwoPolluted": 0,
+          "noisePolluted": 0,
+          "dustPolluted": 0,
+          "dustPollutedStr": null,
+          "noisePollutedStr": null,
+          "dustHandleStr": null,
+          "noiseHandleStr": null,
+          "state": 0,
+          "dustHandle": 0,
+          "noiseHandle": 0,
+          "pmOneLimit": 300,
+          "pmOneMin": 0,
+          "pmTwoLimit": 200,
+          "pmTwoMin": 0,
+          "volumeLimit": 300,
+          "volumeMin": 0,
+          "pmOnePercent": 0,
+          "pmTwoPercent": 0,
+          "noisePercent": 17,
+          "dustEventId": "YC9918602459",
+          "noiseEventId": "ZS9918602459",
+          "startTime": null,
+          "endTime": null,
+          "createTime": "2022-08-08 08:30:02",
+          "updateTime": "2022-08-08 08:30:02",
+          "tsp": 1,
+          "tspPolluted": 0,
+          "tspLimit": 300,
+          "tspMin": 0,
+          "tspPercent": 0
         },
         {
-          equipmentId: '882190765',
-          pointName: '噪声污染监测点',
-          address: 'https://192.168.1.163:8080/api',
-          state: 'success',
+          "id": 54298,
+          "equipmentId": "40183947",
+          "pointName": "矿区出入口1号机",
+          "equipmentFk": 3,
+          "monitoringTime": "2022-08-08 08:30:02",
+          "pmOne": 0,
+          "pmTwo": 10,
+          "volume": 64,
+          "pmOnePolluted": 0,
+          "pmTwoPolluted": 0,
+          "noisePolluted": 0,
+          "dustPolluted": 0,
+          "dustPollutedStr": null,
+          "noisePollutedStr": null,
+          "dustHandleStr": null,
+          "noiseHandleStr": null,
+          "state": 0,
+          "dustHandle": 0,
+          "noiseHandle": 0,
+          "pmOneLimit": 300,
+          "pmOneMin": 0,
+          "pmTwoLimit": 300,
+          "pmTwoMin": 0,
+          "volumeLimit": 300,
+          "volumeMin": 0,
+          "pmOnePercent": 0,
+          "pmTwoPercent": 3,
+          "noisePercent": 21,
+          "dustEventId": "YC9918602445",
+          "noiseEventId": "ZS9918602445",
+          "startTime": null,
+          "endTime": null,
+          "createTime": "2022-08-08 08:30:02",
+          "updateTime": "2022-08-08 08:30:02",
+          "tsp": 12,
+          "tspPolluted": 0,
+          "tspLimit": 200,
+          "tspMin": 1,
+          "tspPercent": 6
         },
         {
-          equipmentId: '882190765',
-          pointName: '噪声污染监测点',
-          address: 'https://192.168.1.163:8080/api',
-          state: 'success',
+          "id": 54297,
+          "equipmentId": "40183974",
+          "pointName": "加工区挡墙",
+          "equipmentFk": 5,
+          "monitoringTime": "2022-08-08 08:20:01",
+          "pmOne": 1,
+          "pmTwo": 2,
+          "volume": 46.9,
+          "pmOnePolluted": 0,
+          "pmTwoPolluted": 0,
+          "noisePolluted": 0,
+          "dustPolluted": 0,
+          "dustPollutedStr": null,
+          "noisePollutedStr": null,
+          "dustHandleStr": null,
+          "noiseHandleStr": null,
+          "state": 0,
+          "dustHandle": 0,
+          "noiseHandle": 0,
+          "pmOneLimit": 300,
+          "pmOneMin": 0,
+          "pmTwoLimit": 200,
+          "pmTwoMin": 0,
+          "volumeLimit": 300,
+          "volumeMin": 0,
+          "pmOnePercent": 0,
+          "pmTwoPercent": 1,
+          "noisePercent": 15,
+          "dustEventId": "YC9918000918",
+          "noiseEventId": "ZS9918000918",
+          "startTime": null,
+          "endTime": null,
+          "createTime": "2022-08-08 08:20:01",
+          "updateTime": "2022-08-08 08:20:01",
+          "tsp": 2,
+          "tspPolluted": 0,
+          "tspLimit": 300,
+          "tspMin": 0,
+          "tspPercent": 0
         },
+        {
+          "id": 54296,
+          "equipmentId": "40183947",
+          "pointName": "矿区出入口1号机",
+          "equipmentFk": 3,
+          "monitoringTime": "2022-08-08 08:20:01",
+          "pmOne": 0,
+          "pmTwo": 10,
+          "volume": 66.3,
+          "pmOnePolluted": 0,
+          "pmTwoPolluted": 0,
+          "noisePolluted": 0,
+          "dustPolluted": 0,
+          "dustPollutedStr": null,
+          "noisePollutedStr": null,
+          "dustHandleStr": null,
+          "noiseHandleStr": null,
+          "state": 0,
+          "dustHandle": 0,
+          "noiseHandle": 0,
+          "pmOneLimit": 300,
+          "pmOneMin": 0,
+          "pmTwoLimit": 300,
+          "pmTwoMin": 0,
+          "volumeLimit": 300,
+          "volumeMin": 0,
+          "pmOnePercent": 0,
+          "pmTwoPercent": 3,
+          "noisePercent": 22,
+          "dustEventId": "YC9918000904",
+          "noiseEventId": "ZS9918000904",
+          "startTime": null,
+          "endTime": null,
+          "createTime": "2022-08-08 08:20:01",
+          "updateTime": "2022-08-08 08:20:01",
+          "tsp": 12,
+          "tspPolluted": 0,
+          "tspLimit": 200,
+          "tspMin": 1,
+          "tspPercent": 6
+        }
       ],
       loading: false,
       dataFlag: true,
@@ -339,7 +737,7 @@ export default {
       startTime: '',
       endTime: '',
       pointName: '',
-      status: null
+      status: 0
     }
   },
   computed: {
@@ -367,7 +765,7 @@ export default {
     }, 500)
     this.pageConfig.total = 10
     this.pageConfig.currentPage = 1
-    this.$refs.table.getShowCols(this.tableData, vehicleInfoField)
+    this.$refs.table.getShowCols(this.tableData, vehicleInfoFieldNoise)
 
     // this.$route.query.id &&
     // (this.topSearchConfig.eleComponents[0].defaultVal = this.$route.query.id) &&
