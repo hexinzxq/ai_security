@@ -2,7 +2,7 @@
   <div class="navbar">
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
-    <span class="system-title">智能安全生产分析预警系统</span>
+    <span class="system-title">生产安全风险分析系统</span>
 
     <div class="right-menu">
       <div class="search_icon"><i class="el-icon-search"></i></div>

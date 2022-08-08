@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '智能安全生产分析预警系统',
+  title: '生产安全风险分析系统',
 
   /**
    * @type {boolean} true | false
