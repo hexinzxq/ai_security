@@ -178,13 +178,13 @@ export const constantRoutes = [
         path: '/operate',
         name: '操作日志',
         component: () => import('@/views/operateLog/index'),
-        meta: { title: '操作日志', icon: 'table' }
+        meta: { title: '操作日志', icon: 'link' }
       },
       {
         path: '/handle',
         name: '处理日志',
         component: () => import('@/views/handleLog/index'),
-        meta: { title: '处理日志', icon: 'table' }
+        meta: { title: '处理日志', icon: 'form' }
       }
     ]
   },
