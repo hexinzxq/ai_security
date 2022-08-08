@@ -324,7 +324,7 @@
                 },
                 {
                   name: '重置',
-                  btnType: 'danger',
+                  btnType: 'default',
                   callback: (values) => {}
                 }
               ]
@@ -699,7 +699,7 @@
             this.$refs.table.loading = false
             this.tableData = res.result.records
             for (const index in this.tableData) {
-              this.tableData[index].index = index
+              this.tableData[index].index =  index
             }
             this.pageConfig.total = res.result.total
             this.$refs.table.getShowCols(this.tableData, mainEvent)

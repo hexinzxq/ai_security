@@ -11,7 +11,7 @@
     >
       <template #operBtn>
         <div class="operation-btn">
-          <el-button type="primary" size="small" :disabled="$refs.logTableC&&$refs.logTableC.selectArr&&$refs.logTableC.selectArr.length===0" @click="handleExport">批量导出</el-button>
+          <el-button type="primary" :disabled="$refs.logTableC&&$refs.logTableC.selectArr&&$refs.logTableC.selectArr.length===0" @click="handleExport">批量导出</el-button>
         </div>
       </template>
       <template #timeRange="data">
@@ -278,13 +278,11 @@ export default {
             btnList: [
               {
                 name: '查询',
-                size: 'small',
                 btnType: 'primary',
                 callback: (values) => {}
               },
               {
                 name: '重置',
-                size: 'small',
                 callback: (values) => {}
               }
             ]
