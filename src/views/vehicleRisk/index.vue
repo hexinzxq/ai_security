@@ -324,7 +324,7 @@
                 },
                 {
                   name: '重置',
-                  btnType: 'danger',
+                  btnType: 'default',
                   callback: (values) => {}
                 }
               ]
