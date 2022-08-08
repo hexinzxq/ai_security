@@ -229,7 +229,7 @@ export default {
           "dustHandleStr": null,
           "noiseHandleStr": null,
           "state": 0,
-          "dustHandle": 0,
+          "dustHandle": 1,
           "noiseHandle": 0,
           "pmOneLimit": 300,
           "pmOneMin": 0,
@@ -311,7 +311,7 @@ export default {
           "dustHandleStr": null,
           "noiseHandleStr": null,
           "state": 0,
-          "dustHandle": 0,
+          "dustHandle": 2,
           "noiseHandle": 0,
           "pmOneLimit": 300,
           "pmOneMin": 0,
@@ -393,7 +393,7 @@ export default {
           "dustHandleStr": null,
           "noiseHandleStr": null,
           "state": 0,
-          "dustHandle": 0,
+          "dustHandle": 2,
           "noiseHandle": 0,
           "pmOneLimit": 300,
           "pmOneMin": 0,
@@ -475,7 +475,7 @@ export default {
           "dustHandleStr": null,
           "noiseHandleStr": null,
           "state": 0,
-          "dustHandle": 0,
+          "dustHandle": 1,
           "noiseHandle": 0,
           "pmOneLimit": 300,
           "pmOneMin": 0,
@@ -769,6 +769,7 @@ export default {
   },
   methods: {
     handleEdit(row) {
+      return
       // 编辑
       const params = {
         id: row.id,
