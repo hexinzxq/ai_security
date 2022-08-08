@@ -218,11 +218,11 @@ export default {
           word:'w.excel'
         },
         {
-          "equipmentId": "山地滑坡",
-          "pointName": "自然灾害引发的风险",
-          "monitoringTime": "加强自然灾害危害性的教育",
-          "pmOne": '积极展开抢险救援、人员安置处理等工作',
-          "pmTwo": '生态环境部门',
+          "equipmentId": "三废排放",
+          "pointName": "三废排放引发的社会风险",
+          "monitoringTime": "提高企业的三废排放标准",
+          "pmOne": '关闭阀门',
+          "pmTwo": '企业安全环保部',
           tsp:'0258881113',
           dustPolluted:'李四',
           dustHandle:'13958391121',
@@ -230,10 +230,10 @@ export default {
           word:'t.excel'
         },
         {
-          "equipmentId": "社会动荡",
-          "pointName": "政治环境风险",
-          "monitoringTime": "做好人员的安抚和宣传工作",
-          "pmOne": '安抚人员',
+          "equipmentId": "乙二醇装置发生环氧乙烷泄漏",
+          "pointName": "化学风险",
+          "monitoringTime": "存储部分设备，严禁明火，按时检查设备",
+          "pmOne": '关闭阀门',
           "pmTwo": '相关管理部门',
           tsp:'0258881113',
           dustPolluted:'李四',

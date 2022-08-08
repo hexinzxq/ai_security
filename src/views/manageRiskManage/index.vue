@@ -191,7 +191,7 @@ export default {
           "monitoringTime": "关于《企业安全管理条例》执行的情况统计",
           "pmOne": '相关人员对厂区安全情况进行排查',
           "pmTwo": '生产安全部',
-          tsp:'2022.05.13'
+          tsp:'2022.07.22'
         },
         {
           "equipmentId": "安全紧急演练",
@@ -199,7 +199,7 @@ export default {
           "monitoringTime": "关于地震、火灾等自然灾害紧急演练",
           "pmOne": '对厂区员工进行突发事件的处理措施进行演练',
           "pmTwo": '所有人员',
-          tsp:'2022.05.13'
+          tsp:'2022.08.13'
         },
         {
           "equipmentId": "安全教育培训",
@@ -213,41 +213,41 @@ export default {
           "equipmentId": "安全隐患排查",
           "pointName": "风险管理",
           "monitoringTime": "关于厂区运输安全隐患的排查",
-          "pmOne": '确定生产车间设备使用规范',
+          "pmOne": '对厂区运输车辆进行安全检查',
+          "pmTwo": '厂区所有车辆',
+          tsp:'2022.04.05'
+        },
+        {
+          "equipmentId": "重大隐患排查",
+          "pointName": "风险管理",
+          "monitoringTime": "关于厂区生产车间设备全面检查",
+          "pmOne": '对厂区生产设备进行评估检查',
           "pmTwo": '安全环保部',
-          tsp:'2022.05.13'
+          tsp:'2022.03.16'
+        },
+        {
+          "equipmentId": "安全会议召开",
+          "pointName": "风险管理",
+          "monitoringTime": "关于下步安全生产的工作动员",
+          "pmOne": '明确生产目标，规划生产时间',
+          "pmTwo": '所有人员',
+          tsp:'2022.03. 08'
         },
         {
           "equipmentId": "安全活动演练",
           "pointName": "风险管理",
-          "monitoringTime": "关于厂区生产车间设备安全讨论",
-          "pmOne": '确定生产车间设备使用规范',
+          "monitoringTime": "关于森林防火的安全演练",
+          "pmOne": '提高安全意识，冷静应对情况',
           "pmTwo": '安全环保部',
-          tsp:'2022.05.13'
+          tsp:'2022.09.08 '
         },
         {
           "equipmentId": "安全教育培训",
           "pointName": "风险管理",
           "monitoringTime": "关于企业信息安全教育培训",
-          "pmOne": '确定生产车间设备使用规范',
-          "pmTwo": '安全环保部',
-          tsp:'2022.05.13'
-        },
-        {
-          "equipmentId": "安全教育培训",
-          "pointName": "风险管理",
-          "monitoringTime": "关于提高员工安全意识的培训",
-          "pmOne": '普及员工安全意识',
-          "pmTwo": '安全环保部',
-          tsp:'2022.05.13'
-        },
-        {
-          "equipmentId": "安全隐患排查",
-          "pointName": "风险管理",
-          "monitoringTime": "关于厂区运输安全隐患的排查",
-          "pmOne": '确定生产车间设备使用规范',
-          "pmTwo": '安全环保部',
-          tsp:'2022.05.13'
+          "pmOne": '提高员工素质，保护企业信息安全',
+          "pmTwo": '所有人员',
+          tsp:'2022.04.13'
         },
 
       ],
@@ -268,106 +268,22 @@ export default {
         gutterList: 20, // 左右结构间距
         eleComponents: [
           {
-            type: 'select',
+            type: 'input',
             // 左边字段名称 可传可不传
-            label: '设备号',
-            placeholder: '请选择设备号',
-            // 默认的value值
-            defaultVal: '',
-            // 搜索字段绑定的值，必穿
+            label: '活动名称',
+            placeholder: '请输入活动名称',
             options: [],
             // 控件name可传可不传
-            name: 'id',
-            // 每列所占的份额  一共24
-            // 每个屏幕各个字段所占份额
-            lg: 8,
-            xl: 6
-          },
-          {
-            type: 'select',
-            // 左边字段名称 可传可不传
-            label: '点位名称',
-            placeholder: '请选择点位名称',
-            // 搜索字段绑定的值，必穿
-            options: [],
-            // 控件name可传可不传
-            name: 'pointName',
-            // 每列所占的份额  一共24
-            // 每个屏幕各个字段所占份额
-            lg: 8,
-            xl: 6
-          },
-          {
-            type: 'select',
-            // 左边字段名称 可传可不传
-            label: '污染',
-            // 默认的value值
-            defaultVal: '',
-            // 搜索字段绑定的值，必穿
-            value: '1',
+            name: '',
+            // 样式可传可不传
             style: {
-              'margin-left': '-15px'
-            },
-            placeholder: '是否污染',
-            // 控件name可传可不传
-            name: 'pollution',
-            options: [{
-              label: '是',
-              value: '1'
-            },
-              {
-                label: '否',
-                value: '0'
-              }],
-            // 每列所占的份额  一共24
-            // 每个屏幕各个字段所占份额
-            lg: 8,
-            xl: 6
-          },
-          {
-            type: 'select',
-            // 左边字段名称 可传可不传
-            label: '状态',
-            placeholder: '处理状态',
-            // 默认的value值
-            defaultVal: '',
-            // 搜索字段绑定的值，必穿
-            options: [
-              {
-                label: '无需处理',
-                value: '0'
-              },
-              {
-                label: '未处理',
-                value: '1'
-              },
-              {
-                label: '已处理',
-                value: '2'
-              }
-            ],
-            // 控件name可传可不传
-            name: 'status',
-            // 每列所占的份额  一共24
-            // 每个屏幕各个字段所占份额
-            lg: 8,
-            xl: 6
-          },
-          {
-            type: 'daterange',
-            // 左边字段名称 可传可不传
-            label: '日期',
-            // 默认的value值
-            defaultVal: '',
-            // 搜索字段绑定的值，必穿
-            value: '',
-            // 控件name可传可不传
-            name: 'vertiName',
-            callback: (values) => {
+              marginLeft: '20px'
             },
             // 每列所占的份额  一共24
             // 每个屏幕各个字段所占份额
-            lg: 8,
+            lg: 6,
+            md: 6,
+            sm: 6,
             xl: 6
           },
           {
