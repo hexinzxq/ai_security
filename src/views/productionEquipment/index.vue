@@ -233,80 +233,19 @@ export default {
       input3: '',
       tableData: [
         {
-          equipmentId: 'GJ0678',
-          pointName: '辊轴筛',
-          ip: '192.168.1.0',
-          // 用电量
-          power:'用电过高',
-          warn:'0',
-          letOut:'0',
-          start:5,
-          //算法布控
-          control:'入侵检测',
-          //当前电压
-          voltage:35,
-          //当前电流
-          electric:110,
-          //通道
-          channel: '5',
-          state: 0
-        },
-        {
-          equipmentId: 'GJ0678',
-          pointName: '辊轴筛',
-          ip: '192.168.1.0',
-          // 用电量
-          power:'正常',
-          warn:'0',
-          letOut:'0',
-          start:5,
-          //算法布控
-          control:'入侵检测',
-          //当前电压
-          voltage:35,
-          //当前电流
-          electric:110,
-          //通道
-          channel: '5',
-          state: 0
-        },
-        {
-          equipmentId: 'GJ0678',
-          pointName: '辊轴筛',
-          ip: '192.168.1.0',
-          // 用电量
-          power:'正常',
-          warn:'0',
-          letOut:'0',
-          start:5,
-          //算法布控
-          control:'入侵检测',
-          //当前电压
-          voltage:35,
-          //当前电流
-          electric:110,
-          //通道
-          channel: '5',
-          state: 0
-        },
-        {
-          equipmentId: 'GJ0678',
-          pointName: '辊轴筛',
-          ip: '192.168.1.0',
-          // 用电量
-          power:'正常',
-          warn:'0',
-          letOut:'0',
-          start:5,
-          //算法布控
-          control:'入侵检测',
-          //当前电压
-          voltage:35,
-          //当前电流
-          electric:110,
-          //通道
-          channel: '5',
-          state: 1
+          equipmentId: 'TK0019',
+          pointName: '托辊称',
+          type: '生产设备',
+          year:'老化',
+          run:'关机',
+          v:'高于标准值',
+          speed:'高于标准值',
+          i:'高于标准值',
+          runtime:'超时',
+          Inspection:'正常',
+          standbyMachine: '是',
+          sameDevices: '是',
+          occurTime: '2022.05.14 22:36:35'
         },
       ],
       loading: false,
@@ -335,8 +274,8 @@ export default {
           {
             type: 'input',
             // 左边字段名称 可传可不传
-            label: '设备编码',
-            placeholder: '请输入设备编码',
+            label: '设备编号',
+            placeholder: '请输入设备编号',
             options: [],
             // 控件name可传可不传
             name: '',
@@ -352,20 +291,13 @@ export default {
             xl: 6
           },
           {
-            type: 'select',
+            type: 'input',
             // 左边字段名称 可传可不传
-            label: '状态',
-            placeholder: '请选择状态',
-            options: [{
-              label:'正常',
-              value:'正常'
-            },
-              {
-                label:'用电过高',
-                value:'用电过高'
-              }],
+            label: '设备名称',
+            placeholder: '请输入设备名称',
+            options: [],
             // 控件name可传可不传
-            name: 'equipmentId',
+            name: '',
             // 样式可传可不传
             style: {
               marginLeft: '20px'

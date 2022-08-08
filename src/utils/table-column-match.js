@@ -69,7 +69,7 @@ export const productionInfoField = {
   ],
   equipmentId: {
     // 列名
-    label: '设备编码',
+    label: '设备编号',
     // 列的最小宽度
     minWidth: ''
   },
@@ -77,50 +77,216 @@ export const productionInfoField = {
     label: '设备名称',
     minWidth: ''
   },
-  ip: {
-    label: '设备IP',
+  type: {
+    label: '设备类型',
     minWidth: '90'
   },
-  // password: {
-  //   label: '设备密码',
-  //   minWidth: ''
-  // },
-  power: {
-    label: '用电量',
+  year: {
+    label: '设备年限状态',
     minWidth: '100'
   },
-  warn: {
-    label: '今日报警次数',
+  run: {
+    label: '设备运行状态',
     minWidth: '120'
   },
-  letOut: {
-    label: '今日泄漏次数',
+  v: {
+    label: '设备电压',
     minWidth: '120'
   },
-  start: {
-    label: '今日启动次数',
+  speed: {
+    label: '设备转速',
     minWidth: '120'
   },
-  electric: {
-    label: '当前电流',
+  i: {
+    label: '设备电流',
     minWidth: ''
   },
-  voltage: {
-    label: '当前电压',
+  runtime: {
+    label: '设备运行时间',
     minWidth: ''
   },
-  control: {
-    label: '算法布控',
+  Inspection: {
+    label: '设备巡检情况',
     minWidth: ''
   },
-  channel: {
-    label: '通道',
+  standbyMachine: {
+    label: '是否有备用机',
     width: 75
   },
-  state: {
-    label: '状态',
+  sameDevices: {
+    label: '同点位是否有相同设备',
     width: 90,
+  },
+  occurTime: {
+    label: '发生时间',
+    width: 90,
+  }
+}
+export const materialColumn = {
+  // 特殊列
+  specialCols: [
+    {
+      prop: 'selection',
+      label: '',
+      width: '40px',
+      align: 'left'
+    },
+  ],
+  equipmentId: {
+    // 列名
+    label: '危险品编号',
+    // 列的最小宽度
+    minWidth: '65px'
+  },
+  pointName: {
+    label: '危险品名称',
+    minWidth: '65px'
+  },
+  type: {
+    // 列名
+    label: '危险品类型',
+    // 列的最小宽度
+    minWidth: '65px',
+  },
+  unit: {
+    label: '危险品单位',
+    minWidth: '65px'
+  },
+  currentStorage: {
+    label: '当前储量',
+    minWidth: '65px'
+  },
+  maxStorage: {
+    label: '最大储量',
+    minWidth: '65px'
+  },
+  location: {
+    label: '存储地点',
+    minWidth: '80px'
+  },
+  temperature: {
+    label: '温度',
+    minWidth: '80px'
+  },
+  smoke: {
+    label: '烟感',
+    minWidth: '80px'
+  },
+  water: {
+    label: '水浸',
+    minWidth: '80px'
+  },
+  concentration: {
+    label: '危险气体浓度',
+    minWidth: '80px'
+  },
+  checkName: {
+    label: '检查名称',
+    minWidth: '80px'
+  },
+  remarks: {
+    label: '备注',
+    minWidth: '80px'
+  },
+  checkTime: {
+    label: '检查时间',
+    minWidth: '80px'
+  },
+}
+export const mainEventService = {
+  // 特殊列
+  specialCols: [
+    {
+      prop: 'selection',
+      label: '',
+      width: '',
+      align
+    },
+  ],
+  deviceNum: {
+    label: '装置编号',
+    minWidth: '56px'
+  },
+  name: {
+    label: '装置名称',
+    minWidth: '78px'
+  },
+  type: {
+    label: '装置类型',
+    minWidth: '120px'
+  },
+  runtime: {
+    label: '装置运行时间',
+    minWidth: '120px',
+  },
+  load: {
+    label: '装置运行负荷',
+    minWidth: '58px'
+  },
+  warnTime: {
+    label: '装置报警次数',
+    minWidth: '98px'
+  },
+  problem: {
+    label: '装置故障情况',
+    minWidth: '98px'
+  },
+  destroyRisk: {
+    label: '装置损坏风险',
+    minWidth: '98px'
+  },
+  occurTime: {
+    label: '发生时间',
+    minWidth: '98px'
+  },
+}
+let align = 'center'
+export const mainEvent = {
+  // 特殊列
+  specialCols: [
+    {
+      prop: 'selection',
+      label: '',
+      width: '',
+      align
+    },
+    {
+      prop: 'index',
+      label: '序号',
+      width: '',
+      fixed: 'left',
+      // fixed:'left',
+      align
+    }
+  ],
+  vehicleNumber: {
+    label: '关联车辆',
+    minWidth: '56px'
+  },
+  warningNo: {
+    label: '事件编号',
+    minWidth: '78px'
+  },
+  vehicleGps: {
+    label: 'GPS定位',
+    minWidth: '120px'
+    // 自定义列内容
+    // slot:true
+    // sortable:true
+  },
+  warningContent: {
+    label: '报警情况',
+    minWidth: '120px',
     slot: true
+  },
+  status: {
+    label: '状态',
+    slot: true,
+    minWidth: '58px'
+  },
+  causeTime: {
+    label: '发生时间',
+    minWidth: '98px'
   }
 }
 export const vehicleInfoFieldNoise = {
@@ -751,55 +917,6 @@ export const userInfoFieldNone = {
   }
 }
 
-let align = 'center'
-export const mainEvent = {
-  // 特殊列
-  specialCols: [
-    {
-      prop: 'selection',
-      label: '',
-      width: '',
-      align
-    },
-    {
-      prop: 'index',
-      label: '序号',
-      width: '',
-      fixed: 'left',
-      // fixed:'left',
-      align
-    }
-  ],
-  vehicleNumber: {
-    label: '关联车辆',
-    minWidth: '56px'
-  },
-  warningNo: {
-    label: '事件编号',
-    minWidth: '78px'
-  },
-  vehicleGps: {
-    label: 'GPS定位',
-    minWidth: '120px'
-    // 自定义列内容
-    // slot:true
-    // sortable:true
-  },
-  warningContent: {
-    label: '报警情况',
-    minWidth: '120px',
-    slot: true
-  },
-  status: {
-    label: '状态',
-    slot: true,
-    minWidth: '58px'
-  },
-  causeTime: {
-    label: '发生时间',
-    minWidth: '98px'
-  }
-}
 
 export const vehicleInfoField = {
   // 特殊列
@@ -841,62 +958,6 @@ export const vehicleInfoField = {
     prop: 'state',
     slot: true
   }
-}
-
-export const materialColumn = {
-  // 特殊列
-  specialCols: [
-    {
-      prop: 'selection',
-      label: '',
-      width: '40px',
-      align: 'left'
-    },
-    {
-      prop: 'index',
-      label: '序号',
-      width: '70px',
-      fixed: 'left',
-      // fixed:'left',
-      align: 'left'
-    }
-  ],
-  equipmentId: {
-    // 列名
-    label: '物料编码',
-    // 列的最小宽度
-    minWidth: '65px'
-  },
-  pointName: {
-    label: '物料名称',
-    minWidth: '65px'
-  },
-  unit: {
-    label: '物料单位',
-    minWidth: '65px'
-  },
-  state: {
-    // 列名
-    label: '状态',
-    // 列的最小宽度
-    minWidth: '55px',
-  },
-  category: {
-    label: '物料种类',
-    minWidth: '65px'
-  },
-  storage: {
-    label: '预计存储量',
-    minWidth: '65px'
-  },
-  surplus: {
-    label: '剩余量',
-    minWidth: '65px'
-  },
-  todayWarn: {
-    label: '今日报警次数',
-    minWidth: '80px'
-  },
 }
 
 export const userColumn = {

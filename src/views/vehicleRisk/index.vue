@@ -1,727 +1,757 @@
 <template>
-  <div class="viewIndex banner">
-    <common-table
-      ref="table"
-      :data-flag="dataFlag"
-      :top-search-config="topSearchConfig"
-      :table-data="tableData"
-      :page-config="pageConfig"
-      :operation-cols="operationCols"
+  <div>
+    <div class="box-card">
+      <div>
+        <common-table
+          ref="table"
+          :data-flag="dataFlag"
+          :table-data="tableData"
+          :page-config="pageConfig"
+          :top-search-config="topSearchConfig"
+          :table-column-match="mainEventService"
+          :alter-flag="alterFlag"
+          :sync-button="syncButton"
+          :export-button="exportButton"
+          :delete-button="true"
+          @handle-delete="handleDelete"
+          @get-table-data="getTableData"
+          @search-info="searchInfo"
+          @syncData="handleSync"
+          @exportData="handleExport"
+        >
+          <template #state="data">
+            <i v-if="data.row.state === 0" class="el-icon-circle-check state-normal"></i>
+            <span
+              v-if="data.row.state === 0"
+            >
+              正常
+            </span>
+            <i v-if="data.row.state !== 0" class="el-icon-warning-outline state-broken"></i>
+            <span
+              v-if="data.row.state !== 0"
+            >
+              离线
+            </span>
+          </template>
+          <template #statusOperationCols="data">
+            <el-button
+              v-if="currentType === 2 && data.row.stream"
+              :disabled="!!data.row.state"
+              type="text"
+              @click="handleVideoStream(data.row, 'open')"
+            >
+              推送视频流
+            </el-button>
+            <el-button
+              v-else-if="currentType === 2 && !data.row.stream"
+              :disabled="!!data.row.state"
+              type="text"
+              @click="handleVideoStream(data.row, 'close')"
+            >
+              关闭视频流
+            </el-button>
+            <el-button
+              v-else
+              type="text"
+              @click="handleEdit(data.row)"
+            >编辑</el-button>
+          </template>
+        </common-table>
+      </div>
+    </div>
+    <el-dialog
+      :title="title"
+      :visible.sync="dialogVisible"
+      width="35%"
+      destroy-on-close
+      :modal-append-to-body="false"
+      @close="closeForm"
     >
-      <template #operBtn>
-        <!-- 自定义顶部内容 -->
-        <div class="btnBox">
-          <el-button
-            :class="{ confirmBtn: btnFlag, disableBtn: !btnFlag }"
-            :disabled="!btnFlag"
-            type="primary"
-            @click="confirmOperator({}, true)"
-          >批量确认</el-button>
-          <el-button
-            :class="{ exportBtn: btnFlag, disableBtn: !btnFlag }"
-            :disabled="!btnFlag"
-            style="
-              margin-left: 25px;
-              background: #fff;
-              color: black;
-              border-color: #ccc;
-            "
-            type="primary"
-            @click="handleExport('table')"
-          >批量导出</el-button>
-        </div>
-      </template>
-      <!-- 报警状态 标签 -->
-      <template #status="data">
-        <el-tag v-if="data.row.status === '未确认'" type="warning">{{
-          data.row.status
-          }}</el-tag>
-        <el-tag v-if="data.row.status === '未处理'">{{
-          data.row.status
-          }}</el-tag>
-        <el-tag v-if="data.row.status === '无需处理'" type="info">{{
-          data.row.status
-          }}</el-tag>
-        <el-tag v-if="data.row.status === '已处理'" type="success">{{
-          data.row.status
-          }}</el-tag>
-      </template>
-      <template #handleStatus="data">
-        <el-link
-          v-if="data.row.status === '无需处理'"
-          class="linkBtn"
+      <el-form
+        ref="internatForm"
+        :model="form"
+        :rules="rulesForm"
+        label-width="90px"
+      >
+        <el-form-item
+          label="设备号"
+          prop="equipmentId"
+          :error="errorEquipmentId"
+        >
+          <el-input
+            v-model="form.equipmentId"
+            placeholder="请输入设备号"
+            style="width: 302px"
+            disabled
+          />
+        </el-form-item>
+        <el-form-item
+          v-if="type !== 1"
+          label="接口地址"
+          prop="address"
+        >
+          <el-input
+            v-model="form.address"
+            placeholder="请输入接口地址"
+            style="width: 302px"
+            disabled
+          >
+            <template slot="prepend">Http://</template>
+          </el-input>
+        </el-form-item>
+        <el-form-item
+          label="点位名称"
+          prop="pointName"
+          :error="errorPointName"
+        >
+          <el-input
+            v-model="form.pointName"
+            placeholder="请输入点位名称"
+            style="width: 302px"
+          />
+        </el-form-item>
+      </el-form>
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button @click="closeForm">取 消</el-button>
+        <el-button
           type="primary"
-          @click="resolveHandel(data.row, '无需处理记录', true)"
-        >查看记录</el-link>
-        <el-link
-          v-if="data.row.status === '已处理'"
-          class="linkBtn"
-          type="primary"
-          @click="resolveHandel(data.row, '已处理记录', false)"
-        >查看记录</el-link>
-        <el-link
-          v-if="data.row.status === '未处理'"
-          class="linkBtn"
-          type="primary"
-          @click="dealEvent(data.row)"
-        >处理</el-link>
-        <el-link
-          v-if="data.row.status === '未确认'"
-          class="linkBtn"
-          type="primary"
-          @click="confirmOperator(data.row, false)"
-        >确认</el-link>
-        <el-link
-          v-if="data.row.status === '未确认'"
-          class="linkBtn"
-          type="primary"
-          @click="noToDeal(data.row)"
-        >无需处理</el-link>
-      </template>
-      <!-- 报警情况 -->
-      <template #warningContent="data">
-        <el-tooltip class="item" effect="dark" :content="data.row.speed+' km/h'" placement="top">
-          <span>{{ data.row.warningContent }}</span>
-        </el-tooltip>
-      </template>
-    </common-table>
+          :loading="loadingButton"
+          @click="closeForm"
+        >确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
+
 <script>
-  import CommonTable from '@/components/CommonTable'
-  // import { TableMinxin } from '@/mixins/TableCommonMinxin'
-  import { mainEvent } from '@/utils/table-column-match'
-  // import { fileInterceptor } from '@/api/manage'
-
-  export default {
-    name: 'VehicleRisk',
-    components: {
-      CommonTable
-    },
-    // mixins: [TableMinxin],
-    data() {
-      return {
-        mainEvent,
-        handleTitle: '已处理记录',
-        // 无需处理和已处理模态框的显隐
-        processedFlag: false,
-        dealVisible: false,
-        // 无需处理事件
-        noDeal: false,
-        confirmVisible: false,
-        modelData: {},
-        // 新增、编辑、查看
-        isAdd: false,
-        isEdit: false,
-        isView: false,
-        // modelConfig: {
-        //   title: '处理事件',
-        //   width: '40%',
-        //   visibleFlag: false
-        // },
-        alterFlag: false,
-        // 操作列
-        operationCols: [
+import CommonTable from '@/components/CommonTable'
+import { mainEventService } from '@/utils/table-column-match'
+import {
+  serviceQuery,
+  serviceAdd,
+  serviceUpdate,
+  serviceDelete,
+  serviceExport,
+  syncEnvMachine,
+  syncGnssDevice,
+  syncCamera,
+  videoStream,
+  getRealDeviceList,
+} from '@/api/api'
+// import { mapGetters } from 'vuex'
+const defaultForm = {
+  id: '',
+  equipmentId: '',
+  ip: '',
+  password: '',
+  address: '',
+  pointName: '',
+  deployment: '',
+  remark: '',
+  type: null
+}
+export default {
+  name: 'EnvironmentEquipment',
+  components: {
+    CommonTable
+  },
+  props: {},
+  data() {
+    return {
+      errorEquipmentId: '',
+      errorPointName: '',
+      loadingButton: false,
+      title: '添加设备',
+      form: { ...defaultForm },
+      dialogVisible: false,
+      rulesForm: {
+        equipmentId: [
           {
-            // 插槽名
-            prop: 'handleStatus',
-            label: '操作',
-            fixed: 'right',
-            slot: true
+            required: true,
+            whitespace: true,
+            message: '请输入设备号',
+            trigger: ['blur']
           }
         ],
-        // 表格数据
-        tableData: [
+        ip: [
           {
-            vehicleNumber:'2WJ-002',
-            status:'未确认',
-            warningNo:'CL8120709941',
-            vehicleGps: '105.928226°E|27.966621°N',
-            warningContent: '超速',
-            causeTime:'2022-07-18 13:07:03',
-          },
-          {
-            vehicleNumber:'2WJ-002',
-            status:'未确认',
-            warningNo:'CL8120709941',
-            vehicleGps: '105.928226°E|27.966621°N',
-            warningContent: '超速',
-            causeTime:'2022-07-18 13:07:03',
-          },
-          {
-            vehicleNumber:'2WJ-002',
-            status:'未确认',
-            warningNo:'CL8120709941',
-            vehicleGps: '105.928226°E|27.966621°N',
-            warningContent: '超速',
-            causeTime:'2022-07-18 13:07:03',
-          },
-          {
-            vehicleNumber:'2WJ-002',
-            status:'未确认',
-            warningNo:'CL8120709941',
-            vehicleGps: '105.928226°E|27.966621°N',
-            warningContent: '超速',
-            causeTime:'2022-07-18 13:07:03',
-          },
-          {
-            vehicleNumber:'2WJ-002',
-            status:'未确认',
-            warningNo:'CL8120709941',
-            vehicleGps: '105.928226°E|27.966621°N',
-            warningContent: '超速',
-            causeTime:'2022-07-18 13:07:03',
-
-          },
-          {
-            vehicleNumber:'2WJ-002',
-            status:'未确认',
-            warningNo:'CL8120709941',
-            vehicleGps: '105.928226°E|27.966621°N',
-            warningContent: '超速',
-            causeTime:'2022-07-18 13:07:03',
-
-
-          },
-          {
-            vehicleNumber:'2WJ-002',
-            status:'未确认',
-            warningNo:'CL8120709941',
-            vehicleGps: '105.928226°E|27.966621°N',
-            warningContent: '超速',
-            causeTime:'2022-07-18 13:07:03',
-
-
-          },
-          {
-            vehicleNumber:'2WJ-002',
-            status:'未确认',
-            warningNo:'CL8120709941',
-            vehicleGps: '105.928226°E|27.966621°N',
-            warningContent: '超速',
-            causeTime:'2022-07-18 13:07:03',
-
-
-          },
-          {
-            vehicleNumber:'2WJ-002',
-            status:'未确认',
-            warningNo:'CL8120709941',
-            vehicleGps: '105.928226°E|27.966621°N',
-            warningContent: '超速',
-            causeTime:'2022-07-18 13:07:03',
-
-          },
-          {
-            vehicleNumber:'2WJ-002',
-            status:'未确认',
-            warningNo:'CL8120709941',
-            vehicleGps: '105.928226°E|27.966621°N',
-            warningContent: '超速',
-            causeTime:'2022-07-18 13:07:03',
-
-          },
+            required: true,
+            whitespace: true,
+            message: '请输入设备ip',
+            trigger: ['blur']
+          }
         ],
-        // 表格相关配置
-        tableConfig: { height: '' },
-        // 顶部搜索配置
-        topSearchConfig: {
-          // 行之间的间距
-          gutterList: 20,
-          // labelWidth: '68px',
-          // labelWidth: '80px',
-          // 一行几个搜索字段 必传
-          rowCount: 3,
-          // 搜索框组件配置
-          eleComponents: [
-            // 每个对象为一列
-            // 同一块布局中可以包含多个按钮
-            {
-              type: 'select',
-              label: '关联车辆',
-              clearable: true,
-              value: '',
-              name: 'vehicleNumber',
-              placeholder: '请选择关联车辆',
-              options: [],
-              // xl: 4,
-              lg: 6,
-              md: 6,
-              sm: 6,
-              xl: 6,
-              callback: (val) => {
-
+        password: [
+          {
+            required: true,
+            whitespace: true,
+            message: '请输入设备密码',
+            trigger: ['blur']
+          }
+        ],
+        address: [
+          {
+            required: true,
+            whitespace: true,
+            message: '请输入接口地址',
+            trigger: ['blur']
+          }
+        ],
+        pointName: [
+          {
+            required: true,
+            whitespace: true,
+            message: '请输入点位名称',
+            trigger: ['blur']
+          }
+        ],
+        deployment: [
+          {
+            required: true,
+            whitespace: true,
+            message: '请输入算法布控',
+            trigger: ['blur']
+          }
+        ],
+        remark: [
+          {
+            required: true,
+            whitespace: true,
+            message: '请输入备注',
+            trigger: ['blur']
+          }
+        ]
+      },
+      addButton: true,
+      exportButton: true,
+      syncButton: true,
+      tabShow: true,
+      mainEventService,
+      input3: '',
+      tableData: [
+        {
+          deviceNum:'TK0014',
+          name:'烟感器',
+          type:'生产装置',
+          runtime: '超时',
+          load: '超标',
+          warnTime:'正常',
+          problem:'单机故障',
+          destroyRisk:'危险品侵蚀',
+          occurTime:'2022.05.14 22:36:35',
+        },
+      ],
+      loading: false,
+      dataFlag: true,
+      pageConfig: {
+        pageSize: 10,
+        total: 0,
+        currentPage: 1,
+        flex: 'flex-end'
+      },
+      // 操作列
+      operationCols: [
+        {
+          // 插槽名
+          prop: 'statusOperationCols',
+          label: '操作',
+          width: '110px',
+          align: 'left',
+          fixed: 'right',
+          slot: true
+        }
+      ],
+      topSearchConfig: {
+        gutterList: 20,
+        eleComponents: [
+          {
+            type: 'input',
+            // 左边字段名称 可传可不传
+            label: '装置编号',
+            placeholder: '请输入装置编号',
+            options: [],
+            // 控件name可传可不传
+            name: '',
+            // 样式可传可不传
+            style: {
+              marginLeft: '20px'
+            },
+            // 每列所占的份额  一共24
+            // 每个屏幕各个字段所占份额
+            lg: 6,
+            md: 6,
+            sm: 6,
+            xl: 6
+          },
+          {
+            type: 'input',
+            // 左边字段名称 可传可不传
+            label: '装置名称',
+            placeholder: '请输入装置名称',
+            options: [],
+            // 控件name可传可不传
+            name: '',
+            // 样式可传可不传
+            style: {
+              marginLeft: '20px'
+            },
+            // 每列所占的份额  一共24
+            // 每个屏幕各个字段所占份额
+            lg: 6,
+            md: 6,
+            sm: 6,
+            xl: 6
+          },
+          {
+            type: 'btn',
+            // xl: 4,
+            lg: 6,
+            md: 6,
+            sm: 6,
+            xl: 6,
+            style: {},
+            btnList: [
+              {
+                name: '查询',
+                btnType: 'primary',
+                callback: (values) => { }
+              },
+              {
+                name: '重置',
+                btnType: 'default',
+                callback: (values) => { }
               }
-            },
-            {
-              // 类型必传
-              type: 'select',
-              value: '',
-              options: [
-                {
-                  label: '全部',
-                  value: ''
-                },
-                {
-                  value: '未确认'
-                },
-                {
-                  value: '未处理'
-                },
-                {
-                  value: '无需处理'
-                },
-                {
-                  value: '已处理'
-                }
-              ],
-              // 左边字段名称 可传可不传
-              label: '状态',
-              // 控件name必传
-              name: 'status',
-              // 样式可传可不传
-              style: {},
-              // 占位内容 可传可不传
-              placeholder: '全部',
-              // 每列所占的份额  一共24
-              // 每个屏幕各个字段所占份额
-              lg: 6,
-              md: 6,
-              sm: 6,
-              xl: 6,
-              callback: (val) => {
-
-              }
-            },
-            // 布局占位内容字段
-            {
-              type: 'date',
-              dateType: 'daterange',
-              label: '日期',
-              clearable: true,
-              style: {},
-              value: '',
-              name: 'dateRange',
-              // xl: 16,
-              lg: 6,
-              md: 6,
-              sm: 6,
-              xl: 6
-            },
-            {
-              type: 'btn',
-              // xl: 4,
-              lg: 6,
-              md: 6,
-              sm: 6,
-              xl: 6,
-              style: {},
-              btnList: [
-                {
-                  name: '查询',
-                  btnType: 'primary',
-                  callback: (values) => {}
-                },
-                {
-                  name: '重置',
-                  btnType: 'default',
-                  callback: (values) => {}
-                }
-              ]
-            }
-          ]
+            ]
+          }
+        ]
+      },
+      optionEquipmentId: [],
+      alterFlag: true,
+      paramsInfo: {
+        current: 1,
+        orderBy: '',
+        params: {
+          equipmentId: '',
+          type: 0
         },
-        pageConfig: {
-          style: {},
-          background: true,
-          // 每页显示条目个数
-          pageSize: 1,
-          // 小型分页样式
-          small: false,
-          // width: "100%",
-          // 分页按钮的对齐方式  flex-start  flex-end  center
-          flex: 'flex-end',
-          // 页码按钮的数量大于5的基数
-          pagerCount: 5,
-          // 当前页码
-          currentPage: 1,
-          total: 0,
-          layout: 'prev, pager, next,sizes,jumper',
-          pageSizes: [10, 20, 30, 40]
-        },
-        // 为true时父组件获取数据，false时只需传入对应url子组件即可自动获取数据
-        dataFlag: true,
-        urlList: {
-          // 给父链接则从父组件中请求  子链接传值则从子组件中请求
-          tableDataUrl: 'digital-mine/vehicleWarning/findAll',
-          exportXlsUrl: 'digital-mine/vehicleWarning/exportXls',
-          confirmUrl: 'digital-mine/vehicleWarning/confirm',
-          batchConfirmUrl: 'digital-mine/vehicleWarning/confirmByWarningNos',
-          handleUrl: 'digital-mine/vehicleWarning/handler',
-          revokeUrl: 'digital-mine/vehicleWarning/cancelIgnore'
-        },
-        // 确认接口数据
-        confirmData: {},
-        fileList: [],
-        // imageUrl: '',
-        // 上传文件名称
-        uploadInfo: '',
-        // 上传文件信息
-        fileInfo: {},
-        // 查看图片路径
-        viewImgUrl: '',
-        previewFlag: false,
-        // 预览图片类型
-        viewFileType: 'img',
-        percent: 0,
-        processFlag: false,
-        loading: false,
-        previewLoading: false,
-        imgLoading: false,
-        batchConfirmFlag: false,
-        btnFlag: false,
-        exportParams: {}
+        size: 10
+      },
+      type: 0,
+      currentType: 0
+    }
+  },
+  computed: {
+    // ...mapGetters(['equipment', 'gnssEquipment', 'cameraEquipment'])
+  },
+  created() {
+    // getRealDeviceList().then(res => {
+    //   this.optionEquipmentId = res.data.data
+    // })
+  },
+  watch: {
+    equipment(newVal) {
+      this.topSearchConfig.eleComponents[0] = {
+        ...this.topSearchConfig.eleComponents[0],
+        ...{ options: [...newVal] }
       }
     },
-    computed: {
-      wsInfo() {
-        return this.$store.state.app.wsInfo
-      }
-      // permissionName() {
-      //   return this.$store.state.app.userInfo.permissionName
-      // }
-    },
-    watch: {
-      wsInfo(msg) {
-        // websocket实时更新
-        if (msg.data === 'heartBeat') return
-        if (JSON.parse(msg.data).type ===  'warnings') {
-          this.getData(this.exportParams)
-        }
+    gnssEquipment(newVal) {
+      this.topSearchConfig.eleComponents[0] = {
+        ...this.topSearchConfig.eleComponents[0],
+        ...{ options: [...newVal] }
       }
     },
-    mounted() {
-      this.$refs.table.getShowCols(this.tableData, mainEvent)
-      setTimeout(() => {
-        this.$refs.table.loading  = false
-      }, 500)
-      // // 父组件中调用接口获取后端数据
-      // this.$nextTick(() => {
-      //   if (this.dataFlag) {
-      //     // pagesize,pageNo,升降序等参数
-      //     // 判断路由参数是否存在
-      //     const params = { }
-      //     if (this.$route.query.type) {
-      //       // 类型赋值
-      //       params.status = this.$route.query.type
-      //       this.topSearchConfig.eleComponents[1].value = this.$route.query.type
-      //       // table组件搜索条件赋值
-      //       this.$refs.table.confirmFilterParams.status = this.$route.query.type
-      //
-      //       // 时间赋值
-      //       params.startTime = this.$route.query.queryData[0]
-      //       params.endTime = this.$route.query.queryData[1]
-      //       // 跳转过来搜索框默认值
-      //       this.topSearchConfig.eleComponents[2].value = this.$route.query.queryData
-      //       // 过滤参数赋值
-      //       this.$refs.table.confirmFilterParams.dateRange = this.$route.query.queryData
-      //     }
-      //     // 跳转过后给状态赋值，不用过滤此处直接赋值
-      //     this.exportParams = { ...params }
-      //     this.getData(params)
-      //   }
-      // })
-      // // 获取所有车牌号码
-      // this.getAllVehicleNumber()
-    },
-    methods: {
-      // 当触发重置、查询操作时重置当前页码
-      resetCurrentPage() {
-        this.pageConfig.currentPage = 1
-      },
-      handleRemove(file, fileList) {
-        this.fileList = fileList
-      },
-      // 重置搜索条件
-      resetSearchParams(params) {
-        this.exportParams  = {}
-        this.pageConfig.currentPage  =  1
-        this.getData(params)
-      },
-      changeStatus(val) {
-        this.btnFlag = val
-      },
-      // 取消查看函数
-      cancelHandle() {
-        URL.revokeObjectURL(this.viewImgUrl)
-        this.fileList = []
-        // this.modelData = {}
-        this.loading = false
-        this.dealVisible = false
-      },
-      // 提交处理数据信息
-      submitDeal() {
-        // 判断是否已经提交  防止用户多次点击
-        if (this.loading) return
-        if (this.fileList.length > 0) {
-          this.$refs.upload.submit()
-        } else {
-          console.log(this.fileInfo)
-          const params = {
-            file: '',
-            warningNo: this.modelData.warningNo,
-            handlerMark: this.modelData.handlerMark
-          }
-          if (this.noDeal) {
-            params.type = 'ignore'
-            this.confirmWarning(params)
-          } else {
-            this.handlewarningCom(params)
-          }
-        }
-        this.loading = true
-      },
-      // 上传文件列表
-      handleChange(file, fileList) {
-        // 截取文件后缀
-        const fileName = file.name.lastIndexOf('.')
-        const fileNameLength = file.name.length
-        const fileFormat = file.name.substring(fileName + 1, fileNameLength)
-        if (!this.acceptType.includes(fileFormat.toLowerCase())) {
-          this.$message.error(`文件格式错误，只能是${this.acceptType}格式`)
-          this.$refs.upload.clearFiles()
-          return
-        }
-        this.uploadInfo = file.name
-        this.fileInfo.name = file.raw.name
-        this.fileInfo.type = file.raw.type
-        // console.log(this.fileInfo)
-        this.fileList = fileList
-        // this.imageUrl = file.url
-      },
-      uploadError(err, file, fileList) {
-        if (err.message.indexOf('Maximum') > -1) { this.$message.error('文件过大') }
-        this.loading = false
-        this.dealVisible = false
-      },
-      // 上传成功回调函数
-      uploadSuccess(res) {
-        // this.$message.success('上传成功!')
-        this.fileInfo.responseId = res.result
-        const params = {
-          file: JSON.stringify(this.fileInfo),
-          warningNo: this.modelData.warningNo,
-          handlerMark: this.modelData.handlerMark
-        }
-        if (this.noDeal) {
-          params.type = 'ignore'
-          params.warningNos = [this.confirmData.warningNo].join(',')
-          this.confirmWarning(params)
-        } else {
-          this.handlewarningCom(params)
-        }
-      },
-      handlewarningCom(params) {
-        // 处理回调函数
-        handleVehicleWarning(this.urlList.handleUrl, params)
-          .then((res) => {
-            this.$message.success('已成功处理')
-            this.loading = false
-            this.dealVisible = false
-            this.getData(this.exportParams)
-          })
-          .catch((err) => {
-            this.$message.error(err)
-          })
-      },
-      // 上传文件进度
-      uploadProcess(event, file, fileList) {
-        this.processFlag = true
-        this.percent = Math.floor(event.percent)
-      },
-      // 初始化确认数据
-      confirmOperator(data, flag) {
-        this.batchConfirmFlag = flag
-        this.handleTitle = '处理事件'
-        this.noDeal = false
-        this.confirmVisible = true
-        this.confirmData = data
-      },
-      // 撤销无需处理
-      revokeDeal(val) {
-        const params = {
-          warningNo: val
-        }
-        handleVehicleWarning(this.urlList.revokeUrl, params).then((res) => {
-          this.$message.success('撤销成功')
-          this.processedFlag = false
-          this.getData(this.exportParams)
-        })
-      },
-      // 无需处理事件
-      noToDeal(data) {
-        data.handlerMark = ''
-        this.fileInfo = {}
-        this.uploadInfo = ''
-        this.fileList = []
-        this.handleTitle = '无需处理事件'
-        this.noDeal = true
-        this.modelData = data
-        this.dealVisible = true
-        this.viewImgUrl = ''
-      },
-      // 确认事件处理函数
-      handleConfirm() {
-        let params
-        if (this.batchConfirmFlag) {
-          const warningNos = []
-          for (const item of this.$refs.table.selectInfo) {
-            warningNos.push(item.warningNo)
-          }
-          params = {
-            warningNos: warningNos.join(','),
-            handlerMark: ''
-          }
-        } else {
-          params = {
-            warningNos: [this.confirmData.warningNo].join(','),
-            file: '',
-            handlerMark: ''
-          }
-        }
-        this.batchConfirm(params)
-      },
-      // 确认操作函数调用
-      confirmWarning(params) {
-        handleVehicleWarning(this.urlList.confirmUrl, params).then((res) => {
-          this.confirmVisible = false
-          this.loading = false
-          this.dealVisible = false
-          this.$message.success('已成功确认处理')
-          this.getData(this.exportParams)
-        })
-      },
-      batchConfirm(params) {
-        handleVehicleWarning(this.urlList.batchConfirmUrl, params)
-          .then((res) => {
-            this.confirmVisible = false
-            this.loading = false
-            this.dealVisible = false
-            this.$message.success('已成功确认处理')
-            this.getData(this.exportParams)
-          })
-          .catch((err) => {
-            console.log(err)
-            // this.$message.error(err.response.data.message)
-          })
-      },
-      dealEvent(data) {
-        if (this.isJson(data.handlerFile)) {
-          this.fileInfo = JSON.parse(data.handlerFile)
-          this.uploadInfo = this.fileInfo.name
-        } else {
-          this.fileInfo = {}
-          this.uploadInfo = ''
-        }
-        // 处理时候清空处理记录
-        data.handlerMark = ''
-        this.fileList = []
-        this.dealVisible = true
-        this.noDeal = false
-        this.modelData = data
-        this.handleTitle = '处理事件'
-        this.processedFlag = false
-      },
-      // 查看信息
-      resolveHandel(data, title, flag) {
-        // console.log(data)
-        // 预览成功标志
-        this.previewLoading = true
-        this.noDeal = flag
-        this.handleTitle = title
-        // 已处理
-        this.processedFlag = true
-        this.viewImgUrl = ''
-        let fileInfo = {}
-        if (this.isJson(data.handlerFile)) {
-          fileInfo = JSON.parse(data.handlerFile)
-          if (fileInfo.type || fileInfo.name) {
-            this.confirmFileType(fileInfo.type)
-            this.uploadInfo = fileInfo.name
-          } else {
-            this.viewFileType = 'empty'
-          }
-        } else {
-          this.viewFileType = 'empty'
-        }
-        // 当存在图片时获取图片
-        if (fileInfo.responseId) {
-          // 获取预览图片
-          fileInterceptor({ id: fileInfo.responseId })
-            .then((res) => {
-              let blob
-              if (this.viewFileType === 'img') {
-                this.imgLoading = false
-                blob = new Blob([res], {
-                  type: 'image/jpeg;charset=utf-8'
-                })
-              } else {
-                blob = new Blob([res], {
-                  type: 'application/pdf;charset=utf-8'
-                })
-              }
-              this.previewLoading = false
-              this.viewImgUrl = URL.createObjectURL(blob)
-            })
-            .catch((err) => {
-              console.log(err)
-              this.$message.error('文件已损坏!')
-              this.viewFileType = 'error'
-            })
-        }
-        this.modelData = { ...data }
-        // console.log(this.modelData)
-      },
-      // 判断查看文件类型
-      confirmFileType(type) {
-        if (/(gif|jpg|jpeg|png)$/.test(type.toLowerCase())) {
-          // 图片类型则加载图片
-          this.imgLoading = true
-          this.viewFileType = 'img'
-        } else {
-          this.viewFileType = 'pdf'
-        }
-      },
-      // 表格数据请求接口
-      getData(params) {
-        getMainTableData(this.urlList.tableDataUrl, params)
-          .then((res) => {
-            this.$refs.table.loading = false
-            this.tableData = res.result.records
-            for (const index in this.tableData) {
-              this.tableData[index].index =  index
-            }
-            this.pageConfig.total = res.result.total
-            this.$refs.table.getShowCols(this.tableData, mainEvent)
-            // this.pageConfig.total = this.urlTableData.length;
-          })
-          .catch((e) => {
-            console.log(e)
-          })
-      },
-      // 获取搜索字段内容
-      getSearchInfo(filterParams) {
-        this.exportParams = { ...filterParams }
-        if (this.exportParams['dateRange']) {
-          this.exportParams.startTime = this.exportParams.dateRange[0]
-          this.exportParams.endTime = this.exportParams.dateRange[1]
-          delete this.exportParams['dateRange']
-        }
-        this.getData(this.exportParams)
+    cameraEquipment(newVal) {
+      this.topSearchConfig.eleComponents[0] = {
+        ...this.topSearchConfig.eleComponents[0],
+        ...{ options: [...newVal] }
       }
     }
+  },
+  mounted() {
+    this.$refs.table.getShowCols(this.tableData, mainEventService)
+    setTimeout(() => {
+      this.$refs.table.loading = false
+    }, 500)
+    // this.$nextTick(() => {
+    //   if (this.dataFlag) {
+    //     // pagesize,pageNo,升降序等参数
+    //     this.getTableData(this.paramsInfo)
+    //     this.topSearchConfig.eleComponents[0] = {
+    //       ...this.topSearchConfig.eleComponents[0],
+    //       ...{ options: [...this.equipment] }
+    //     }
+    //   }
+    // })
+  },
+  methods: {
+    // 处理视频推流
+    handleVideoStream(data, type) {
+      videoStream({
+        channel: data.channel,
+        code: data.equipmentId,
+        type
+      }).then(res => {
+        if (res.data.code === 200) {
+          if (type === 'open') {
+            this.$message.success('推送视频流成功')
+            console.log(process.env.VUE_APP_FLV_URL);
+          } else if (type === 'close') {
+            this.$message.success('关闭视频流成功')
+            console.log(process.env.VUE_APP_FLV_URL);
+          }
+          this.getDataAfterSync()
+        } else {
+          type === 'open' && this.$message.error(res.data.msg || '推送视频流失败')
+          type === 'close' && this.$message.error(res.data.msg || '关闭视频流失败')
+        }
+      }).catch(e => {
+        type === 'open' && this.$message.error(e.msg || '推送视频流失败')
+        type === 'close' && this.$message.error(e.msg || '关闭视频流失败')
+      })
+    },
+    // 同步后请求分页数据
+    getDataAfterSync() {
+      this.getTableData(
+        {
+          ...this.paramsInfo,
+          current: this.pageConfig.currentPage
+        }
+      )
+      if (this.type === 0) {
+        this.$store.dispatch('config/serviceEnvQuery')
+      } else if (this.type === 1) {
+        this.$store.dispatch('config/serviceGnssQuery')
+      } else if (this.type === 2) {
+        this.$store.dispatch('config/serviceCameraQuery')
+      }
+    },
+    // 设备同步
+    // handleSync() {
+    //   return
+    //   this.$confirm('是否确定同步设备数据?', '提示', {
+    //     confirmButtonText: '确定',
+    //     cancelButtonText: '取消',
+    //     type: 'warning'
+    //   }).then(() => {
+    //     if (this.type === 0) {
+    //       // 环境一体机设备同步
+    //       syncEnvMachine().then(res => {
+    //         if (res.data.code === 200) {
+    //           this.$message.success('设备数据同步成功')
+    //           this.getDataAfterSync()
+    //         }
+    //       }).catch(e => {
+    //         this.$message.error(e.msg || '同步设备数据失败')
+    //       })
+    //     } else if (this.type === 1) {
+    //       syncGnssDevice().then(res => {
+    //         if (res.data.code === 200) {
+    //           this.$message.success('设备数据同步成功')
+    //           this.getDataAfterSync()
+    //         }
+    //       }).catch(e => {
+    //         this.$message.error(e.msg || '同步设备数据失败')
+    //       })
+    //     } else if (this.type === 2) {
+    //       syncCamera().then(res => {
+    //         if (res.data.code === 200) {
+    //           this.$message.success('设备数据同步成功')
+    //           this.getDataAfterSync()
+    //         }
+    //       }).catch(e => {
+    //         this.$message.error(e.msg || '同步设备数据失败')
+    //       })
+    //     }
+    //   }).catch(() => {
+    //     this.$message({
+    //       type: 'info',
+    //       message: '已取消同步'
+    //     })
+    //   });
+    // },
+    handleExport() {
+      // 获取选择的数据
+      if (this.$refs.table.selectArr && this.$refs.table.selectArr.length > 0) {
+        // 联调导出的接口
+        serviceExport(
+          this.$refs.table.selectArr
+        )
+          .then((res) => {
+            this.$exportFun(res, '.xlsx')
+          })
+          .catch((e) => {
+            this.$message.error(e.msg || '导出失败！')
+          })
+      } else {
+        this.$message.warning('请至少选择一项！')
+      }
+    },
+    handleEdit(row) {
+      // 编辑
+      this.title = '编辑设备'
+      this.form = {
+        ...defaultForm,
+        id: row.id,
+        equipmentId: row.equipmentId,
+        ip: row.ip,
+        password: row.password,
+        address: row.address,
+        pointName: row.pointName,
+        deployment: row.deployment,
+        remark: row.remark,
+        type: this.type
+      }
+      this.dialogVisible = true
+    },
+    handleDelete(row) {
+      // 联调删除的接口
+      let ids = []
+      if (row) {
+        ids.push(row.id)
+      } else {
+        ids = this.$refs.table.selectArr
+      }
+      this.$confirm('是否确定删除记录，删除后无法撤销。', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        customClass: 'del-box',
+        type: 'error'
+      }).then(() => {
+        serviceDelete({
+          ids: ids
+        })
+          .then(res => {
+            if (res.data.success) {
+              this.$message.success('删除成功！')
+              this.getTableData(
+                {
+                  ...this.paramsInfo,
+                  current: 1
+                }
+              )
+              if (this.type === 0) {
+                this.$store.dispatch('config/serviceEnvQuery')
+              } else if (this.type === 1) {
+                this.$store.dispatch('config/serviceGnssQuery')
+              } else if (this.type === 2) {
+                this.$store.dispatch('config/serviceCameraQuery')
+              }
+            } else {
+              this.$message.error(res.data.msg || '删除失败！')
+            }
+          })
+          .catch(e => {
+            this.$message.error(e.msg || '删除失败！')
+          })
+      }).catch(() => {
+      })
+    },
+    // 封装查询内容
+    searchParams(filterParams) {
+      const params = {
+        equipmentId:
+          filterParams && filterParams.equipmentId
+            ? filterParams.equipmentId
+            : '',
+        type: this.type
+      }
+      return params
+    },
+    searchInfo(filterParams) {
+      this.pageConfig.currentPage = 1
+      this.paramsInfo = {
+        size: this.pageConfig.pageSize,
+        current: this.pageConfig.currentPage,
+        orderBy: '',
+        params: this.searchParams(filterParams)
+      }
+      this.getTableData(this.paramsInfo)
+    },
+    async getTableData(params, flag, filterParams, index) {
+      // 从表格那边刷新一些搜索条件
+      if (flag) {
+        if (index === 0) {
+          this.type = index
+          this.topSearchConfig.eleComponents[0] = {
+            ...this.topSearchConfig.eleComponents[0],
+            ...{ options: [...this.equipment] }
+          }
+        } else if (index === 1) {
+          this.type = 1
+          this.topSearchConfig.eleComponents[0] = {
+            ...this.topSearchConfig.eleComponents[0],
+            ...{ options: [...this.gnssEquipment] }
+          }
+        } else if (index === 2) {
+          this.type = 2
+          this.topSearchConfig.eleComponents[0] = {
+            ...this.topSearchConfig.eleComponents[0],
+            ...{ options: [...this.cameraEquipment] }
+          }
+        }
+        params = {
+          size: params.pageSize,
+          current: params.pageNum,
+          orderBy: '',
+          params: this.searchParams(filterParams)
+        }
+        this.paramsInfo = params
+      }
+      await serviceQuery(params)
+        .then(res => {
+          this.$refs.table.loading = false
+          this.tableData = res.data.data.records
+          this.pageConfig.total = res.data.data.total
+          this.pageConfig.currentPage = res.data.data.current
+          this.type === 2
+            ? this.$refs.table.getShowCols(this.tableData, cameraInfoField)
+            : this.type === 1
+              ? this.$refs.table.getShowCols(this.tableData, gnssInfoField)
+              : this.$refs.table.getShowCols(this.tableData, vehicleInfoField)
+          this.currentType = this.type
+        })
+        .catch(e => {
+          this.$message.error(e.msg || '请求失败！')
+          this.$refs.table.loading = false
+        })
+    },
+    addData() {
+      this.title = '新增设备'
+      this.form = { ...defaultForm, type: this.type }
+      this.dialogVisible = true
+    },
+    closeForm() {
+      this.title = '新增报警标准'
+      this.loadingButton = false
+      this.errorEquipmentId = ''
+      this.errorPointName = ''
+      this.form = { ...defaultForm }
+      if (this.type === 0) {
+        this.$store.dispatch('config/serviceEnvQuery')
+      } else if (this.type === 1) {
+        this.$store.dispatch('config/serviceGnssQuery')
+      } else if (this.type === 2) {
+        this.$store.dispatch('config/serviceCameraQuery')
+      }
+      this.dialogVisible = false
+    },
+    async confirmForm() {
+      this.$refs.internatForm.validate(async(success, _info) => {
+        if (success) {
+          this.errorEquipmentId = ''
+          this.loadingButton = true
+          if (this.form.id) {
+            // 修改接口
+            await serviceUpdate(this.form)
+              .then(res => {
+                if (res.data.success) {
+                  this.$message.success('修改成功！')
+                  this.getTableData(this.paramsInfo)
+                  this.closeForm()
+                } else {
+                  this.loadingButton = false
+                  if (res.data.data.equipmentId) {
+                    this.errorEquipmentId = res.data.data.equipmentId
+                  } else if (res.data.data.pointName) {
+                    this.errorPointName = res.data.data.pointName
+                  } else {
+                    this.$message.error(res.data.msg || '请求失败！')
+                  }
+                }
+              })
+              .catch(e => {
+                this.loadingButton = false
+                this.$message.error(e.msg || '请求失败！')
+              })
+          } else {
+            // 新增接口
+            const formData = {
+              equipmentId: this.form.equipmentId,
+              ip: this.form.ip,
+              password: this.form.password,
+              address: this.form.address,
+              pointName: this.form.pointName,
+              deployment: this.form.deployment,
+              remark: this.form.remark,
+              type: this.form.type
+            }
+            await serviceAdd(formData)
+              .then(res => {
+                if (res.data.success) {
+                  this.$message.success('添加成功！')
+                  this.$refs.table.resetForm()
+                  this.closeForm()
+                } else {
+                  this.loadingButton = false
+                  if (res.data.data.equipmentId) {
+                    this.errorEquipmentId = res.data.data.equipmentId
+                  } else if (res.data.data.pointName) {
+                    this.errorPointName = res.data.data.pointName
+                  } else {
+                    this.$message.error(res.data.msg || '请求失败！')
+                  }
+                }
+              })
+              .catch(e => {
+                this.loadingButton = false
+                this.$message.error(e.msg || '请求失败！')
+              })
+          }
+        }
+      })
+    }
   }
+}
 </script>
 <style lang="scss" scoped>
-  @import "~@/styles/common.scss";
+
+.box-card {
+  margin: 16px;
+}
+
+.title {
+  border-bottom: 1px solid #d7d7d7;
+  height: 50px;
+  color: #20a0ff;
+  line-height: 50px;
+  background-color: #f7f7f7;
+  margin-bottom: 20px;
+}
+
+.input-with-select {
+  margin-left: 15px;
+  width: 250px;
+}
+.state-normal {
+  font-size: 25px;
+  font-weight: bold;
+  vertical-align: middle;
+  margin-right: 3px;
+  color: #1DC878;
+}
+.state-broken {
+  font-size: 25px;
+  font-weight: bold;
+  vertical-align: middle;
+  margin-right: 3px;
+  color: #FF3B30;
+}
+.del-box {
+  .el-message-box__btns {
+    .el-button:nth-child(1) {
+    }
+    .el-button:nth-child(2) {
+      margin-right:10px;
+      background-color:#22a575 !important;
+      border: 1px solid #22a575 !important;
+    }
+  }
+}
+::v-deep .el-button--text.is-disabled {
+  color: #a0cfff !important;
+}
 </style>

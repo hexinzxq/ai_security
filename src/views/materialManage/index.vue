@@ -238,114 +238,36 @@ export default {
       input3: '',
       tableData: [
         {
-          equipmentId: 'GJ0678',
-          pointName: '氮气',
-          unit: 't',
-          ip: '192.168.1.164',
-          state: '库存充足',
-          category: '气体危险品',
-          storage: '1000',
-          surplus: '800',
-          todayWarn: '0',
+          equipmentId: '1',
+          pointName: '氯气',
+          type: '有毒气体',
+          unit: '升',
+          currentStorage: '150',
+          maxStorage: '200',
+          location: '一号气罐',
+          temperature: '18',
+          smoke: '15.5%',
+          water: '无',
+          concentration: '75%',
+          checkName: '气罐气密性检查',
+          remarks: '无',
+          checkTime: '2022.8.6'
         },
         {
-          equipmentId: 'GJ0658',
-          pointName: '燃油',
-          unit: 'kg',
-          ip: '192.168.1.164',
-          state: '库存充足',
-          category: '液体危险品',
-          storage: '800',
-          surplus: '600',
-          todayWarn: '2',
-        },
-        {
-          equipmentId: 'GJ066',
-          pointName: '混合石',
-          unit: '方',
-          ip: '192.168.1.164',
-          state: '库存紧张',
-          category: '/',
-          storage: '2000',
-          surplus: '800',
-          todayWarn: '1',
-        },
-        {
-          equipmentId: 'GJ0678',
-          pointName: '氮气',
-          unit: 't',
-          ip: '192.168.1.164',
-          state: '库存充足',
-          category: '气体危险品',
-          storage: '1000',
-          surplus: '800',
-          todayWarn: '0',
-        },
-        {
-          equipmentId: 'GJ0658',
-          pointName: '燃油',
-          unit: 'kg',
-          ip: '192.168.1.164',
-          state: '库存充足',
-          category: '液体危险品',
-          storage: '800',
-          surplus: '600',
-          todayWarn: '2',
-        },
-        {
-          equipmentId: 'GJ066',
-          pointName: '混合石',
-          unit: '方',
-          ip: '192.168.1.164',
-          state: '库存紧张',
-          category: '/',
-          storage: '2000',
-          surplus: '800',
-          todayWarn: '1',
-        },
-        {
-          equipmentId: 'GJ0678',
-          pointName: '氮气',
-          unit: 't',
-          ip: '192.168.1.164',
-          state: '库存充足',
-          category: '气体危险品',
-          storage: '1000',
-          surplus: '800',
-          todayWarn: '0',
-        },
-        {
-          equipmentId: 'GJ0658',
-          pointName: '燃油',
-          unit: 'kg',
-          ip: '192.168.1.164',
-          state: '库存充足',
-          category: '液体危险品',
-          storage: '800',
-          surplus: '600',
-          todayWarn: '2',
-        },
-        {
-          equipmentId: 'GJ066',
-          pointName: '混合石',
-          unit: '方',
-          ip: '192.168.1.164',
-          state: '库存紧张',
-          category: '/',
-          storage: '2000',
-          surplus: '800',
-          todayWarn: '1',
-        },
-        {
-          equipmentId: 'GJ066',
-          pointName: '混合石',
-          unit: '方',
-          ip: '192.168.1.164',
-          state: '库存紧张',
-          category: '/',
-          storage: '2000',
-          surplus: '800',
-          todayWarn: '1',
+          equipmentId: '2',
+          pointName: '柴油',
+          type: '易燃液体',
+          unit: '吨',
+          currentStorage: '300',
+          maxStorage: '500',
+          location: '一号液罐',
+          temperature: '10',
+          smoke: '15.5%',
+          water: '无',
+          concentration: '18%',
+          checkName: '液罐气密性检查、消防检查',
+          remarks: '无',
+          checkTime: '2022.8.6'
         },
       ],
       loading: false,
@@ -375,9 +297,9 @@ export default {
             // 类型必传
             type: 'input',
             // 左边字段名称 可传可不传
-            label: '装置编码',
+            label: '危险品编号',
             // 搜索字段绑定的值，必穿
-            placeholder: '请输入装置编码',
+            placeholder: '请输入危险品编号',
             value: '',
             // 控件name可传可不传
             name: 'deviceName',
@@ -395,9 +317,9 @@ export default {
             // 类型必传
             type: 'input',
             // 左边字段名称 可传可不传
-            label: '装置名称',
+            label: '危险品名称',
             // 搜索字段绑定的值，必穿
-            placeholder: '请输入装置名称',
+            placeholder: '请输入危险品名称',
             value: '',
             // 控件name可传可不传
             name: 'deviceName',
@@ -410,32 +332,6 @@ export default {
             md: 6,
             sm: 6,
             xl: 4
-          },
-          {
-            type: 'select',
-            // 左边字段名称 可传可不传
-            label: '状态',
-            value: '正常',
-            placeholder: '正常',
-            options: [{
-              label: '正常',
-              value: '正常'
-            },{
-              label: '异常',
-              value: '异常'
-            }],
-            // 控件name可传可不传
-            name: 'equipmentId',
-            // 样式可传可不传
-            style: {
-              marginLeft: '20px'
-            },
-            // 每列所占的份额  一共24
-            // 每个屏幕各个字段所占份额
-            lg: 6,
-            md: 6,
-            sm: 6,
-            xl: 6
           },
           {
             type: 'btn',
