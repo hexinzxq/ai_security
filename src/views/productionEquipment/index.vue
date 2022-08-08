@@ -8,10 +8,8 @@
           :table-data="tableData"
           :page-config="pageConfig"
           :top-search-config="topSearchConfig"
-          :table-column-match="vehicleInfoField"
-          :operation-cols="operationCols"
+          :table-column-match="productionInfoField"
           :alter-flag="alterFlag"
-          :tab-show="tabShow"
           :sync-button="syncButton"
           :export-button="exportButton"
           :delete-button="true"
@@ -130,7 +128,7 @@
 
 <script>
 import CommonTable from '@/components/CommonTable'
-import { vehicleInfoField, cameraInfoField, gnssInfoField } from '@/utils/table-column-match'
+import { productionInfoField } from '@/utils/table-column-match'
 import {
   serviceQuery,
   serviceAdd,
@@ -156,7 +154,7 @@ const defaultForm = {
   type: null
 }
 export default {
-  name: 'ProductionEquipment',
+  name: 'EnvironmentEquipment',
   components: {
     CommonTable
   },
@@ -231,102 +229,85 @@ export default {
       exportButton: true,
       syncButton: true,
       tabShow: true,
-      tabData: ['环境一体机', 'GNSS', '摄像头'],
-      vehicleInfoField,
-      cameraInfoField,
-      gnssInfoField,
+      productionInfoField,
       input3: '',
       tableData: [
         {
-          equipmentId: '202208018891',
-          pointName: '生产设备点位',
-          ip: '192.168.1.164',
-          rtsp: 'https://172.166.4.125:8050/rtsp',
-          flv: 'https://172.166.4.125:8050/flv',
-          address: '四川省成都市双流区',
-          channel: '0',
-          state: 'success'
+          equipmentId: 'GJ0678',
+          pointName: '辊轴筛',
+          ip: '192.168.1.0',
+          // 用电量
+          power:'用电过高',
+          warn:'0',
+          letOut:'0',
+          start:5,
+          //算法布控
+          control:'入侵检测',
+          //当前电压
+          voltage:35,
+          //当前电流
+          electric:110,
+          //通道
+          channel: '5',
+          state: 0
         },
         {
-          equipmentId: '202208018891',
-          pointName: '生产设备点位',
-          ip: '192.168.1.164',
-          rtsp: 'https://172.166.4.125:8050/rtsp',
-          flv: 'https://172.166.4.125:8050/flv',
-          address: '四川省成都市双流区',
-          channel: '0',
-          state: 'success'
+          equipmentId: 'GJ0678',
+          pointName: '辊轴筛',
+          ip: '192.168.1.0',
+          // 用电量
+          power:'正常',
+          warn:'0',
+          letOut:'0',
+          start:5,
+          //算法布控
+          control:'入侵检测',
+          //当前电压
+          voltage:35,
+          //当前电流
+          electric:110,
+          //通道
+          channel: '5',
+          state: 0
         },
         {
-          equipmentId: '202208018891',
-          pointName: '生产设备点位',
-          ip: '192.168.1.164',
-          rtsp: 'https://172.166.4.125:8050/rtsp',
-          flv: 'https://172.166.4.125:8050/flv',
-          address: '四川省成都市双流区',
-          channel: '0',
-          state: 'success'
+          equipmentId: 'GJ0678',
+          pointName: '辊轴筛',
+          ip: '192.168.1.0',
+          // 用电量
+          power:'正常',
+          warn:'0',
+          letOut:'0',
+          start:5,
+          //算法布控
+          control:'入侵检测',
+          //当前电压
+          voltage:35,
+          //当前电流
+          electric:110,
+          //通道
+          channel: '5',
+          state: 0
         },
         {
-          equipmentId: '202208018891',
-          pointName: '生产设备点位',
-          ip: '192.168.1.164',
-          rtsp: 'https://172.166.4.125:8050/rtsp',
-          flv: 'https://172.166.4.125:8050/flv',
-          address: '四川省成都市双流区',
-          channel: '0',
-          state: 'success'
+          equipmentId: 'GJ0678',
+          pointName: '辊轴筛',
+          ip: '192.168.1.0',
+          // 用电量
+          power:'正常',
+          warn:'0',
+          letOut:'0',
+          start:5,
+          //算法布控
+          control:'入侵检测',
+          //当前电压
+          voltage:35,
+          //当前电流
+          electric:110,
+          //通道
+          channel: '5',
+          state: 1
         },
-        {
-          equipmentId: '202208018891',
-          pointName: '生产设备点位',
-          ip: '192.168.1.164',
-          rtsp: 'https://172.166.4.125:8050/rtsp',
-          flv: 'https://172.166.4.125:8050/flv',
-          address: '四川省成都市双流区',
-          channel: '0',
-          state: 'success'
-        },
-        {
-          equipmentId: '202208018891',
-          pointName: '生产设备点位',
-          ip: '192.168.1.164',
-          rtsp: 'https://172.166.4.125:8050/rtsp',
-          flv: 'https://172.166.4.125:8050/flv',
-          address: '四川省成都市双流区',
-          channel: '0',
-          state: 'success'
-        },
-        {
-          equipmentId: '202208018891',
-          pointName: '生产设备点位',
-          ip: '192.168.1.164',
-          rtsp: 'https://172.166.4.125:8050/rtsp',
-          flv: 'https://172.166.4.125:8050/flv',
-          address: '四川省成都市双流区',
-          channel: '0',
-          state: 'success'
-        },
-        {
-          equipmentId: '202208018891',
-          pointName: '生产设备点位',
-          ip: '192.168.1.164',
-          rtsp: 'https://172.166.4.125:8050/rtsp',
-          flv: 'https://172.166.4.125:8050/flv',
-          address: '四川省成都市双流区',
-          channel: '0',
-          state: 'success'
-        },
-        {
-          equipmentId: '202208018891',
-          pointName: '生产设备点位',
-          ip: '192.168.1.164',
-          rtsp: 'https://172.166.4.125:8050/rtsp',
-          flv: 'https://172.166.4.125:8050/flv',
-          address: '四川省成都市双流区',
-          channel: '0',
-          state: 'success'
-        }
       ],
       loading: false,
       dataFlag: true,
@@ -352,11 +333,37 @@ export default {
         gutterList: 20,
         eleComponents: [
           {
+            type: 'input',
+            // 左边字段名称 可传可不传
+            label: '设备编码',
+            placeholder: '请输入设备编码',
+            options: [],
+            // 控件name可传可不传
+            name: '',
+            // 样式可传可不传
+            style: {
+              marginLeft: '20px'
+            },
+            // 每列所占的份额  一共24
+            // 每个屏幕各个字段所占份额
+            lg: 6,
+            md: 6,
+            sm: 6,
+            xl: 6
+          },
+          {
             type: 'select',
             // 左边字段名称 可传可不传
-            label: '设备号',
-            placeholder: '请选择设备号',
-            options: [],
+            label: '状态',
+            placeholder: '请选择状态',
+            options: [{
+              label:'正常',
+              value:'正常'
+            },
+              {
+                label:'用电过高',
+                value:'用电过高'
+              }],
             // 控件name可传可不传
             name: 'equipmentId',
             // 样式可传可不传
@@ -437,7 +444,7 @@ export default {
     }
   },
   mounted() {
-    this.$refs.table.getShowCols(this.tableData, cameraInfoField)
+    this.$refs.table.getShowCols(this.tableData, productionInfoField)
     setTimeout(() => {
       this.$refs.table.loading = false
     }, 500)
@@ -495,49 +502,49 @@ export default {
       }
     },
     // 设备同步
-    handleSync() {
-      return
-      this.$confirm('是否确定同步设备数据?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        if (this.type === 0) {
-          // 环境一体机设备同步
-          syncEnvMachine().then(res => {
-            if (res.data.code === 200) {
-              this.$message.success('设备数据同步成功')
-              this.getDataAfterSync()
-            }
-          }).catch(e => {
-            this.$message.error(e.msg || '同步设备数据失败')
-          })
-        } else if (this.type === 1) {
-          syncGnssDevice().then(res => {
-            if (res.data.code === 200) {
-              this.$message.success('设备数据同步成功')
-              this.getDataAfterSync()
-            }
-          }).catch(e => {
-            this.$message.error(e.msg || '同步设备数据失败')
-          })
-        } else if (this.type === 2) {
-          syncCamera().then(res => {
-            if (res.data.code === 200) {
-              this.$message.success('设备数据同步成功')
-              this.getDataAfterSync()
-            }
-          }).catch(e => {
-            this.$message.error(e.msg || '同步设备数据失败')
-          })
-        }
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消同步'
-        })
-      });
-    },
+    // handleSync() {
+    //   return
+    //   this.$confirm('是否确定同步设备数据?', '提示', {
+    //     confirmButtonText: '确定',
+    //     cancelButtonText: '取消',
+    //     type: 'warning'
+    //   }).then(() => {
+    //     if (this.type === 0) {
+    //       // 环境一体机设备同步
+    //       syncEnvMachine().then(res => {
+    //         if (res.data.code === 200) {
+    //           this.$message.success('设备数据同步成功')
+    //           this.getDataAfterSync()
+    //         }
+    //       }).catch(e => {
+    //         this.$message.error(e.msg || '同步设备数据失败')
+    //       })
+    //     } else if (this.type === 1) {
+    //       syncGnssDevice().then(res => {
+    //         if (res.data.code === 200) {
+    //           this.$message.success('设备数据同步成功')
+    //           this.getDataAfterSync()
+    //         }
+    //       }).catch(e => {
+    //         this.$message.error(e.msg || '同步设备数据失败')
+    //       })
+    //     } else if (this.type === 2) {
+    //       syncCamera().then(res => {
+    //         if (res.data.code === 200) {
+    //           this.$message.success('设备数据同步成功')
+    //           this.getDataAfterSync()
+    //         }
+    //       }).catch(e => {
+    //         this.$message.error(e.msg || '同步设备数据失败')
+    //       })
+    //     }
+    //   }).catch(() => {
+    //     this.$message({
+    //       type: 'info',
+    //       message: '已取消同步'
+    //     })
+    //   });
+    // },
     handleExport() {
       // 获取选择的数据
       if (this.$refs.table.selectArr && this.$refs.table.selectArr.length > 0) {
@@ -675,8 +682,8 @@ export default {
           this.type === 2
             ? this.$refs.table.getShowCols(this.tableData, cameraInfoField)
             : this.type === 1
-              ? this.$refs.table.getShowCols(this.tableData, gnssInfoField)
-              : this.$refs.table.getShowCols(this.tableData, vehicleInfoField)
+            ? this.$refs.table.getShowCols(this.tableData, gnssInfoField)
+            : this.$refs.table.getShowCols(this.tableData, vehicleInfoField)
           this.currentType = this.type
         })
         .catch(e => {
@@ -818,9 +825,5 @@ export default {
 }
 ::v-deep .el-button--text.is-disabled {
   color: #a0cfff !important;
-}
-
-::v-deep .tab {
-  display: none !important;
 }
 </style>

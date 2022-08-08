@@ -57,7 +57,72 @@ export const deviceField = {
     slot: true
   }
 }
-
+export const productionInfoField = {
+  // 特殊列
+  specialCols: [
+    {
+      prop: 'selection',
+      label: '',
+      width: '',
+      align: 'center'
+    }
+  ],
+  equipmentId: {
+    // 列名
+    label: '设备编码',
+    // 列的最小宽度
+    minWidth: ''
+  },
+  pointName: {
+    label: '设备名称',
+    minWidth: ''
+  },
+  ip: {
+    label: '设备IP',
+    minWidth: '90'
+  },
+  // password: {
+  //   label: '设备密码',
+  //   minWidth: ''
+  // },
+  power: {
+    label: '用电量',
+    minWidth: '100'
+  },
+  warn: {
+    label: '今日报警次数',
+    minWidth: '120'
+  },
+  letOut: {
+    label: '今日泄漏次数',
+    minWidth: '120'
+  },
+  start: {
+    label: '今日启动次数',
+    minWidth: '120'
+  },
+  electric: {
+    label: '当前电流',
+    minWidth: ''
+  },
+  voltage: {
+    label: '当前电压',
+    minWidth: ''
+  },
+  control: {
+    label: '算法布控',
+    minWidth: ''
+  },
+  channel: {
+    label: '通道',
+    width: 75
+  },
+  state: {
+    label: '状态',
+    width: 90,
+    slot: true
+  }
+}
 export const vehicleInfoFieldNoise = {
   // 特殊列
   specialCols: [
