@@ -13,13 +13,13 @@
       </div>
       <div class="echarts_box">
         <h2 class="title">设备风险展示</h2>
-        <div style=" width:800px;display: flex;flex-flow: row nowrap">
           <div id="echart3" style="width: 400px;height: 200px;">
           </div>
+      </div>
+      <div class="echarts_box">
+        <h2 class="title"></h2>
           <div id="echart4" style="width: 400px;height: 200px;">
           </div>
-        </div>
-
       </div>
       <div class="echarts_box">
         <div class="title_type">
@@ -46,27 +46,20 @@
       </div>
       <div class="echarts_box">
         <h2 class="title">作业风险展示</h2>
-        <div style=" width:800px;display: flex;flex-flow: row nowrap">
           <div id="echart6" style="width: 400px;height: 200px;">
-          </div>
         </div>
 
       </div>
       <div class="echarts_box">
         <h2 class="title">环境风险展示</h2>
-        <div style=" width:800px;display: flex;flex-flow: row nowrap">
           <div id="echart7" style="width: 400px;height: 200px;">
           </div>
-        </div>
 
       </div>
-      <div class="echarts_box">
-        <h2 class="title">管理风险展示</h2>
-        <div style=" width:1500px;display: flex;flex-flow: row nowrap">
-          <div id="echart8" style="width: 1500px;height: 400px;">
-          </div>
-        </div>
-
+    </div>
+    <div class="echarts_box_special">
+      <h2 class="title">管理风险展示</h2>
+      <div id="echart8" style="width: 1000px;height: 400px;">
       </div>
     </div>
     <DashboardTable></DashboardTable>
@@ -666,14 +659,12 @@ export default {
   width: 400px;
   background: #fff;
 }
-.echarts_box:nth-child(3){
-  width: 800px;
-}
-.echarts_box:last-child{
-  width: 1500px;
-  margin-left: 100px;
-}
 .container{
   padding: 20px;
+}
+.echarts_box_special{
+  width: 1000px;
+  margin: 0 auto;
+  overflow: auto;
 }
 </style>
