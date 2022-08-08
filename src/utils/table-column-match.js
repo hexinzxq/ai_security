@@ -644,6 +644,76 @@ export const vehicleInfoField = {
   }
 }
 
+export const materialColumn = {
+  // 特殊列
+  specialCols: [
+    {
+      prop: 'selection',
+      label: '',
+      width: '40px',
+      align: 'left'
+    },
+    {
+      prop: 'index',
+      label: '序号',
+      width: '70px',
+      fixed: 'left',
+      // fixed:'left',
+      align: 'left'
+    }
+  ],
+  equipmentId: {
+    // 列名
+    label: '设备编码',
+    // 列的最小宽度
+    minWidth: '65px'
+  },
+  pointName: {
+    label: '设备名称',
+    minWidth: '65px'
+  },
+  ip: {
+    label: '设备ip',
+    minWidth: '65px'
+  },
+  address: {
+    label: '接口地址',
+    minWidth: '80px'
+  },
+  state: {
+    // 列名
+    label: '状态',
+    // 列的最小宽度
+    minWidth: '55px',
+    prop: 'state',
+    slot: true
+  },
+  todayWarn: {
+    label: '今日报警次数',
+    minWidth: '80px'
+  },
+  todayLeak: {
+    label: '今日泄漏次数',
+  },
+  todayStart: {
+    label: '今日启动次数',
+  },
+  algorithm: {
+    label: '算法布控',
+    minWidth: '80px'
+  },
+  currentV: {
+    label: '当前电压',
+  },
+  currentI: {
+    label: '当前电流',
+  },
+  passageway: {
+    label: '通道',
+    minWidth: '80px'
+  },
+}
+
 export const vehicleInfoFieldSlope = {
   // 特殊列
   specialCols: [
