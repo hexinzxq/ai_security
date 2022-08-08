@@ -50,8 +50,8 @@ export const constantRoutes = [
           {
             path: '/employeeManage',
             component: () => import('@/views/userManage/index'),
-            name: '人员管理',
-            meta: { title: '人员管理' }
+            name: '人员风险管理',
+            meta: { title: '人员风险管理' }
           }
         ]
       },
@@ -65,8 +65,8 @@ export const constantRoutes = [
           {
             path: '/materialManage',
             component: () => import('@/views/materialManage/index'),
-            name: '物料管理',
-            meta: { title: '物料管理' }
+            name: '物料风险管理',
+            meta: { title: '物料风险管理' }
           }
         ]
       },
