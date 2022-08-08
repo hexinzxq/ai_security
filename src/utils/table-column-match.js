@@ -144,49 +144,56 @@ export const vehicleInfoFieldNoise = {
   ],
   equipmentId: {
     // 列名
-    label: '设备号',
+    label: '风险事件',
     // 列的最小宽度
     minWidth: '50px'
   },
   pointName: {
-    label: '点位名称',
+    label: '风险源类型',
     minWidth: '60px'
   },
   monitoringTime: {
     // 列名
-    label: '监测时间',
+    label: '风险预防措施',
     // 列的最小宽度
     // minWidth: '190px'
   },
   pmOne: {
-    label: 'PM2.5',
-    slot: true,
+    label: '现场处置措施',
     minWidth: '40px'
   },
   pmTwo: {
     // 列名
-    label: 'PM10',
+    label: '上报部门',
     // 列的最小宽度
-    slot: true,
     minWidth: '40px'
   },
   tsp: {
-    label: 'TSP',
-    slot: true,
+    label: '部门联系方式',
     minWidth: '40px'
   },
   dustPolluted: {
-    label: '是否污染',
-    slot: true,
+    label: '应急责任人',
     minWidth: '45px'
   },
   dustHandle: {
     // 列名
-    label: '状态',
+    label: '责任人联系方式',
     // 列的最小宽度
-    slot: true,
     minWidth: '70px'
-  }
+  },
+  time: {
+  // 列名
+  label: '风险发生时间',
+    // 列的最小宽度
+    minWidth: '70px'
+},
+  word: {
+    // 列名
+    label: '附件',
+    // 列的最小宽度
+    minWidth: '70px'
+  },
 }
 
 export const vehicleInfoFieldManage = {
@@ -210,49 +217,34 @@ export const vehicleInfoFieldManage = {
   ],
   equipmentId: {
     // 列名
-    label: '设备号',
+    label: '活动名称',
     // 列的最小宽度
     minWidth: '50px'
   },
   pointName: {
-    label: '点位名称',
+    label: '活动类型',
     minWidth: '60px'
   },
   monitoringTime: {
     // 列名
-    label: '监测时间',
+    label: '活动主题',
     // 列的最小宽度
     // minWidth: '190px'
   },
   pmOne: {
-    label: 'PM2.5',
-    slot: true,
+    label: '活动内容',
     minWidth: '40px'
   },
   pmTwo: {
     // 列名
-    label: 'PM10',
+    label: '参与部门',
     // 列的最小宽度
-    slot: true,
     minWidth: '40px'
   },
   tsp: {
-    label: 'TSP',
-    slot: true,
+    label: '活动时间',
     minWidth: '40px'
   },
-  dustPolluted: {
-    label: '是否污染',
-    slot: true,
-    minWidth: '45px'
-  },
-  dustHandle: {
-    // 列名
-    label: '状态',
-    // 列的最小宽度
-    slot: true,
-    minWidth: '70px'
-  }
 }
 
 export const vehicleInfoFieldWork = {
@@ -276,47 +268,57 @@ export const vehicleInfoFieldWork = {
   ],
   equipmentId: {
     // 列名
-    label: '设备号',
+    label: '作业编号',
     // 列的最小宽度
     minWidth: '50px'
   },
   pointName: {
-    label: '点位名称',
+    label: '作业名称',
     minWidth: '60px'
   },
-  monitoringTime: {
+  address:{
+    label: '作业地点',
+    minWidth: '60px'
+  },
+  user: {
     // 列名
-    label: '监测时间',
+    label: '管理人员',
     // 列的最小宽度
     // minWidth: '190px'
   },
-  pmOne: {
-    label: 'PM2.5',
-    slot: true,
+  joinUser: {
+    label: '参与人员',
     minWidth: '40px'
   },
   pmTwo: {
     // 列名
-    label: 'PM10',
+    label: '违规行为数量',
     // 列的最小宽度
-    slot: true,
     minWidth: '40px'
   },
   tsp: {
-    label: 'TSP',
-    slot: true,
+    label: '其他风险因素',
     minWidth: '40px'
   },
   dustPolluted: {
-    label: '是否污染',
-    slot: true,
+    label: '备注',
     minWidth: '45px'
   },
   dustHandle: {
     // 列名
-    label: '状态',
+    label: '作业内容',
+    minWidth: '70px'
+  },
+  startTime: {
+    // 列名
+    label: '作业开始时间',
     // 列的最小宽度
-    slot: true,
+    minWidth: '70px'
+  },
+  endTime: {
+    // 列名
+    label: '作业结束时间',
+    // 列的最小宽度
     minWidth: '70px'
   }
 }
