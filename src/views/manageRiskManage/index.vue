@@ -10,7 +10,7 @@
             :table-data="tableData"
             :page-config="pageConfig"
             :top-search-config="topSearchConfig"
-            :table-column-match="vehicleInfoFieldWork"
+            :table-column-match="vehicleInfoFieldManage"
             :operation-cols="operationCols"
             :alter-flag="alterFlag"
             :export-button="exportButton"
@@ -153,12 +153,12 @@
 <script>
 import { monitorQuery, monitorExport, viewEvent } from '@/api/api'
 import CommonTable from '@/components/CommonTable'
-import { vehicleInfoFieldWork } from '@/utils/table-column-match'
+import { vehicleInfoFieldManage } from '@/utils/table-column-match'
 import { mapGetters, mapState } from 'vuex'
 import { getMyDate } from '@/utils/format'
 
 export default {
-  name: 'DustMonitor',
+  name: 'ManageRiskManage',
   components: {
     CommonTable,
   },
@@ -167,7 +167,7 @@ export default {
     return {
       id: '',
       alterFlag: true,
-      vehicleInfoFieldWork,
+      vehicleInfoFieldManage,
       value: '',
       tableData: [
         {
@@ -755,7 +755,7 @@ export default {
   created() {
   },
   mounted() {
-    this.$refs.table.getShowCols(this.tableData, vehicleInfoFieldWork)
+    this.$refs.table.getShowCols(this.tableData, vehicleInfoFieldManage)
     setTimeout(() => {
       this.$refs.table.loading = false
     }, 500)
@@ -837,7 +837,7 @@ export default {
         this.tableData = response.data.data.records
         this.pageConfig.total = response.data.data.total
         this.pageConfig.currentPage = response.data.data.current
-        this.$refs.table.getShowCols(this.tableData, vehicleInfoFieldWork)
+        this.$refs.table.getShowCols(this.tableData, vehicleInfoFieldManage)
       })
     },
     currentChange(value) {

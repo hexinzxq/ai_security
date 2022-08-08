@@ -124,6 +124,138 @@ export const vehicleInfoFieldNoise = {
   }
 }
 
+export const vehicleInfoFieldManage = {
+  // 特殊列
+  specialCols: [
+    {
+      prop: 'selection',
+      label: '',
+      width: '50px',
+      fixed: 'left',
+      align: 'left'
+    },
+    {
+      prop: 'index',
+      label: '序号',
+      width: '60',
+      fixed: 'left',
+      // fixed:'left',
+      align: 'left'
+    }
+  ],
+  equipmentId: {
+    // 列名
+    label: '设备号',
+    // 列的最小宽度
+    minWidth: '50px'
+  },
+  pointName: {
+    label: '点位名称',
+    minWidth: '60px'
+  },
+  monitoringTime: {
+    // 列名
+    label: '监测时间',
+    // 列的最小宽度
+    // minWidth: '190px'
+  },
+  pmOne: {
+    label: 'PM2.5',
+    slot: true,
+    minWidth: '40px'
+  },
+  pmTwo: {
+    // 列名
+    label: 'PM10',
+    // 列的最小宽度
+    slot: true,
+    minWidth: '40px'
+  },
+  tsp: {
+    label: 'TSP',
+    slot: true,
+    minWidth: '40px'
+  },
+  dustPolluted: {
+    label: '是否污染',
+    slot: true,
+    minWidth: '45px'
+  },
+  dustHandle: {
+    // 列名
+    label: '状态',
+    // 列的最小宽度
+    slot: true,
+    minWidth: '70px'
+  }
+}
+
+export const vehicleInfoFieldWork = {
+  // 特殊列
+  specialCols: [
+    {
+      prop: 'selection',
+      label: '',
+      width: '50px',
+      fixed: 'left',
+      align: 'left'
+    },
+    {
+      prop: 'index',
+      label: '序号',
+      width: '60',
+      fixed: 'left',
+      // fixed:'left',
+      align: 'left'
+    }
+  ],
+  equipmentId: {
+    // 列名
+    label: '设备号',
+    // 列的最小宽度
+    minWidth: '50px'
+  },
+  pointName: {
+    label: '点位名称',
+    minWidth: '60px'
+  },
+  monitoringTime: {
+    // 列名
+    label: '监测时间',
+    // 列的最小宽度
+    // minWidth: '190px'
+  },
+  pmOne: {
+    label: 'PM2.5',
+    slot: true,
+    minWidth: '40px'
+  },
+  pmTwo: {
+    // 列名
+    label: 'PM10',
+    // 列的最小宽度
+    slot: true,
+    minWidth: '40px'
+  },
+  tsp: {
+    label: 'TSP',
+    slot: true,
+    minWidth: '40px'
+  },
+  dustPolluted: {
+    label: '是否污染',
+    slot: true,
+    minWidth: '45px'
+  },
+  dustHandle: {
+    // 列名
+    label: '状态',
+    // 列的最小宽度
+    slot: true,
+    minWidth: '70px'
+  }
+}
+
 // 人员白名单管理表头数据
 export const peopleField = {
   // 特殊列
@@ -664,53 +796,85 @@ export const materialColumn = {
   ],
   equipmentId: {
     // 列名
-    label: '设备编码',
+    label: '物料编码',
     // 列的最小宽度
     minWidth: '65px'
   },
   pointName: {
-    label: '设备名称',
+    label: '物料名称',
     minWidth: '65px'
   },
-  ip: {
-    label: '设备ip',
+  unit: {
+    label: '物料单位',
     minWidth: '65px'
-  },
-  address: {
-    label: '接口地址',
-    minWidth: '80px'
   },
   state: {
     // 列名
     label: '状态',
     // 列的最小宽度
     minWidth: '55px',
-    prop: 'state',
-    slot: true
+  },
+  category: {
+    label: '物料种类',
+    minWidth: '65px'
+  },
+  storage: {
+    label: '预计存储量',
+    minWidth: '65px'
+  },
+  surplus: {
+    label: '剩余量',
+    minWidth: '65px'
   },
   todayWarn: {
     label: '今日报警次数',
     minWidth: '80px'
   },
-  todayLeak: {
-    label: '今日泄漏次数',
+}
+
+export const userColumn = {
+  // 特殊列
+  specialCols: [
+    {
+      prop: 'selection',
+      label: '',
+      width: '40px',
+      align: 'left'
+    },
+  ],
+  employeeNum: {
+    // 列名
+    label: '员工号',
+    // 列的最小宽度
+    minWidth: '65px'
   },
-  todayStart: {
-    label: '今日启动次数',
+  name: {
+    label: '姓名',
+    minWidth: '65px'
   },
-  algorithm: {
-    label: '算法布控',
+  phone: {
+    label: '手机号',
+    minWidth: '65px'
+  },
+  employeeType: {
+    label: '考勤状态',
+    minWidth: '65px'
+  },
+  department: {
+    label: '部门',
     minWidth: '80px'
   },
-  currentV: {
-    label: '当前电压',
-  },
-  currentI: {
-    label: '当前电流',
-  },
-  passageway: {
-    label: '通道',
+  position: {
+    label: '职位',
     minWidth: '80px'
+  },
+  isSpecial: {
+    label: '特殊工种',
+    minWidth: '80px'
+  },
+  special: {
+    label: '备注',
+    minWidth: '65px'
   },
 }
 
